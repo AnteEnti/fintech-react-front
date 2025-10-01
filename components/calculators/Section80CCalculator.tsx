@@ -6,7 +6,6 @@ interface CalculatorProps {
     onStateChange: (state: Record<string, any>) => void;
 }
 
-// FIX: Define a specific type for the investments state to ensure type safety.
 interface InvestmentFields {
     ppf: string;
     epf: string;
@@ -16,7 +15,6 @@ interface InvestmentFields {
     other: string;
 }
 
-// FIX: Replaced destructuring with default empty object for `initialState` with optional chaining.
 const Section80CCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange }) => {
     const { language } = useLanguage();
     const [investments, setInvestments] = useState<InvestmentFields>(initialState?.investments || {
@@ -27,21 +25,18 @@ const Section80CCalculator: React.FC<CalculatorProps> = ({ initialState, onState
         homeLoan: '',
         other: ''
     });
-    // FIX: Explicitly type the taxSlab state as a number.
     const [taxSlab, setTaxSlab] = useState<number>(initialState?.taxSlab || 30);
 
     useEffect(() => {
         onStateChange({ investments, taxSlab });
     }, [investments, taxSlab, onStateChange]);
 
-    // FIX: Use the specific keyof type for the field parameter.
     const handleInvestmentChange = (field: keyof InvestmentFields, value: string) => {
         setInvestments(prev => ({ ...prev, [field]: value }));
     };
 
     const { totalInvestment, eligibleDeduction, taxSaved } = useMemo(() => {
-        // FIX: The `investments` object is now strongly typed, so `Object.values` returns `string[]`.
-        // The `reduce` operation is now type-safe, resulting in a number.
+        // FIX: The `total` variable was inferred as 'unknown'. By strongly typing the reduce operation's arguments, `total` is correctly inferred as a number, fixing the type error on the following line.
         const total = Object.values(investments).reduce((sum: number, val: string) => sum + (Number(val) || 0), 0);
         const deduction = Math.min(total, 150000);
         const saved = deduction * (taxSlab / 100);
@@ -64,7 +59,6 @@ const Section80CCalculator: React.FC<CalculatorProps> = ({ initialState, onState
 
     const deductionProgress = (eligibleDeduction / 150000) * 100;
 
-    // FIX: The `name` prop is now correctly typed as a union of string literals, which is assignable to `string`.
     const InvestmentInput: React.FC<{ name: keyof InvestmentFields, label: string }> = ({ name, label }) => (
          <div>
             <label htmlFor={name} className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">{label}</label>

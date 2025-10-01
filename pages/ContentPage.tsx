@@ -1,39 +1,20 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { generateContent } from '../services/geminiService';
 import { useLanguage } from '../context/LanguageContext';
 import { PageData, PageType } from '../types';
 import Sidebar from '../components/Sidebar';
 import Breadcrumbs from '../components/Breadcrumbs';
 import RelatedLinks from '../components/RelatedLinks';
-import LoadingSpinner from '../components/LoadingSpinner';
 import { SITEMAP_DATA } from '../constants';
 import BookmarkButton from '../components/BookmarkButton';
-
-// A simple markdown to HTML converter
-import { marked } from 'marked';
 
 interface ContentPageProps {
   pageData: PageData;
 }
 
 const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
-  const [content, setContent] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
   const { language } = useLanguage();
   const location = useLocation();
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      setLoading(true);
-      const generatedContent = await generateContent(pageData, language);
-      setContent(generatedContent);
-      setLoading(false);
-    };
-
-    fetchContent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageData.path, language]);
 
   const sidebarCategories = useMemo(() => {
       switch (pageData.type) {
@@ -53,13 +34,6 @@ const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
     }
   }, [pageData.type, language]);
 
-  const parsedContent = useMemo(() => {
-    if (content) {
-      return { __html: marked.parse(content) as string };
-    }
-    return { __html: '' };
-  }, [content]);
-
   return (
     <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
       <Sidebar title={sidebarTitle} categories={sidebarCategories} currentPath={location.pathname} />
@@ -70,20 +44,23 @@ const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
             <h1 className="text-3xl md:text-4xl font-extrabold text-primary dark:text-blue-300">{pageData.title[language]}</h1>
             <BookmarkButton pagePath={pageData.path} />
           </div>
-          {loading ? (
-            <LoadingSpinner />
-          ) : (
-            <div 
-                className="prose max-w-none text-gray-700 dark:text-gray-300
-                           dark:prose-headings:text-gray-200 
-                           dark:prose-strong:text-gray-200
-                           dark:prose-a:text-blue-400
-                           dark:prose-blockquote:text-gray-400
-                           dark:prose-code:text-gray-300
-                           dark:prose-th:text-gray-200"
-                dangerouslySetInnerHTML={parsedContent} 
-            />
-          )}
+          
+          <div className="prose max-w-none text-gray-700 dark:text-gray-300">
+            <h2 className="text-xl font-semibold">
+                {language === 'en' ? 'Content Placeholder' : 'కంటెంట్ ప్లేస్‌హోల్డర్'}
+            </h2>
+            <p>
+                {language === 'en'
+                    ? 'This is where dynamic content from your WordPress CMS will be displayed. The AI content generation has been removed.'
+                    : 'మీ WordPress CMS నుండి డైనమిక్ కంటెంట్ ఇక్కడ ప్రదర్శించబడుతుంది. AI కంటెంట్ జనరేషన్ తీసివేయబడింది.'}
+            </p>
+            <p>
+                {language === 'en'
+                    ? 'To connect this page to WordPress, you would typically fetch the post data corresponding to this page\'s slug from the WordPress REST API and render the HTML content here.'
+                    : 'ఈ పేజీని WordPressకి కనెక్ట్ చేయడానికి, మీరు సాధారణంగా WordPress REST API నుండి ఈ పేజీ స్లగ్‌కు సంబంధించిన పోస్ట్ డేటాను పొంది, ఇక్కడ HTML కంటెంట్‌ను రెండర్ చేస్తారు.'}
+            </p>
+          </div>
+
           <RelatedLinks links={pageData.interlinks} />
         </article>
       </div>

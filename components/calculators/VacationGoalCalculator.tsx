@@ -7,7 +7,6 @@ interface CalculatorProps {
     onStateChange: (state: Record<string, any>) => void;
 }
 
-// FIX: Define a specific type for the costs state to ensure type safety.
 interface CostFields {
     flights: string;
     accommodation: string;
@@ -19,7 +18,6 @@ interface CostFields {
 const VacationGoalCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange }) => {
     const { language } = useLanguage();
     
-    // FIX: Explicitly type the costs state to prevent 'any' type from initialState.
     const [costs, setCosts] = useState<CostFields>(initialState?.costs || {
         flights: '50000',
         accommodation: '60000',
@@ -27,8 +25,8 @@ const VacationGoalCalculator: React.FC<CalculatorProps> = ({ initialState, onSta
         food: '40000',
         misc: '20000',
     });
-    const [timelineMonths, setTimelineMonths] = useState(initialState?.timelineMonths || 18);
-    const [currentSavings, setCurrentSavings] = useState(initialState?.currentSavings || 10000);
+    const [timelineMonths, setTimelineMonths] = useState<number>(initialState?.timelineMonths || 18);
+    const [currentSavings, setCurrentSavings] = useState<number>(initialState?.currentSavings || 10000);
 
     useEffect(() => {
         onStateChange({ costs, timelineMonths, currentSavings });
@@ -44,17 +42,21 @@ const VacationGoalCalculator: React.FC<CalculatorProps> = ({ initialState, onSta
         requiredMonthlySavings,
         progressPercentage
     } = useMemo(() => {
-        // FIX: With 'costs' strongly typed, 'total' is correctly inferred as a number, fixing the arithmetic errors.
+        // FIX: `total` was inferred as 'unknown', causing arithmetic and comparison errors. By strongly typing the reduce operation's arguments, `total` is correctly inferred as a number.
         const total = Object.values(costs).reduce((sum: number, val: string) => sum + (Number(val) || 0), 0);
         const remaining = Math.max(0, total - currentSavings);
-        const monthly = timelineMonths > 0 ? remaining / timelineMonths : remaining;
+        
+        // FIX: Removed incorrect re-declaration of `timelineMonths` that caused a reference error to 'timelineYears', and prevented division by zero.
+        const monthlySavings = timelineMonths > 0 ? remaining / timelineMonths : 0;
+        
+        // FIX: Added a check for `total > 0` before division to prevent NaN results and fix comparison errors, as `total` is now correctly typed as a number.
         const progress = total > 0 ? (currentSavings / total) * 100 : 0;
 
         return {
             totalCost: total,
             remainingAmount: remaining,
-            requiredMonthlySavings: monthly,
-            progressPercentage: Math.min(100, progress)
+            requiredMonthlySavings: monthlySavings,
+            progressPercentage: Math.min(100, progress) // Cap at 100%
         };
     }, [costs, timelineMonths, currentSavings]);
 

@@ -1,126 +1,112 @@
-import { User, UserData, SavedCalculation, PageData } from '../types';
+import { UserData, SavedCalculation, PageData } from '../types';
+import { useAuth } from '../context/AuthContext'; // We'll need this to get the user context in the future
 
-const USER_DATA_KEY_PREFIX = 'userData_';
-const CURRENT_USER_KEY = 'currentUser';
+// NOTE: This service is currently a placeholder using localStorage.
+// All functions should be updated to make authenticated API calls
+// to a backend service to store user-specific data (bookmarks, calculations).
 
-// --- Auth ---
+const getUserId = (): string | null => {
+    // In a real app, you would get this from the AuthContext.
+    // For now, we'll use the username from localStorage as a key.
+    try {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            // A simple (and insecure) way to get username for this mock setup.
+            // A real JWT would be decoded on the server.
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            return payload.data.user.id; // Or username if that's the key
+        }
+        return null;
+    } catch (e) {
+        return null;
+    }
+}
 
-export const signup = (username: string): boolean => {
-  const key = `${USER_DATA_KEY_PREFIX}${username}`;
-  if (localStorage.getItem(key)) {
-    return false; // User already exists
-  }
-  const newUser: User = { username };
-  const newUserDate: UserData = {
-    user: newUser,
-    bookmarks: [],
-    calculations: [],
-  };
-  localStorage.setItem(key, JSON.stringify(newUserDate));
-  localStorage.setItem(CURRENT_USER_KEY, username);
-  return true;
+
+// --- Data Management for Logged-in User ---
+// This entire section needs to be replaced with API calls.
+
+const getUserData = (): UserData | null => {
+    const userId = getUserId();
+    if (!userId) return null;
+    try {
+        const data = localStorage.getItem(`userData_${userId}`);
+        return data ? JSON.parse(data) : { user: { username: '' }, bookmarks: [], calculations: [] };
+    } catch (error) {
+        return { user: { username: '' }, bookmarks: [], calculations: [] };
+    }
 };
 
-export const login = (username: string): boolean => {
-  const key = `${USER_DATA_KEY_PREFIX}${username}`;
-  if (localStorage.getItem(key)) {
-    localStorage.setItem(CURRENT_USER_KEY, username);
-    return true;
-  }
-  return false; // User does not exist
+const saveUserData = (data: UserData) => {
+    const userId = getUserId();
+    if (!userId) return;
+    try {
+        localStorage.setItem(`userData_${userId}`, JSON.stringify(data));
+    } catch (error) {
+        console.error("Error saving user data", error);
+    }
 };
 
-export const logout = (): void => {
-  localStorage.removeItem(CURRENT_USER_KEY);
-};
-
-export const getCurrentUser = (): User | null => {
-  const username = localStorage.getItem(CURRENT_USER_KEY);
-  return username ? { username } : null;
-};
-
-// --- User Data Management ---
-
-const getUserData = (username: string): UserData | null => {
-  const key = `${USER_DATA_KEY_PREFIX}${username}`;
-  const data = localStorage.getItem(key);
-  return data ? JSON.parse(data) : null;
-};
-
-const saveUserData = (username: string, data: UserData): void => {
-  const key = `${USER_DATA_KEY_PREFIX}${username}`;
-  localStorage.setItem(key, JSON.stringify(data));
-};
-
-// --- Bookmarks ---
-
+// Bookmarks
 export const getBookmarks = (): string[] => {
-  const user = getCurrentUser();
-  if (!user) return [];
-  const data = getUserData(user.username);
-  return data?.bookmarks || [];
-};
-
-export const addBookmark = (path: string): void => {
-  const user = getCurrentUser();
-  if (!user) return;
-  const data = getUserData(user.username);
-  if (data && !data.bookmarks.includes(path)) {
-    data.bookmarks.push(path);
-    saveUserData(user.username, data);
-  }
-};
-
-export const removeBookmark = (path: string): void => {
-  const user = getCurrentUser();
-  if (!user) return;
-  const data = getUserData(user.username);
-  if (data) {
-    data.bookmarks = data.bookmarks.filter(b => b !== path);
-    saveUserData(user.username, data);
-  }
+    // API_CALL: GET /api/user/bookmarks
+    const data = getUserData();
+    return data ? data.bookmarks : [];
 };
 
 export const isBookmarked = (path: string): boolean => {
-  const bookmarks = getBookmarks();
-  return bookmarks.includes(path);
+    // API_CALL: This could be part of the initial page load data or a separate check.
+    const bookmarks = getBookmarks();
+    return bookmarks.includes(path);
 };
 
-// --- Saved Calculations ---
-
-export const getSavedCalculations = (): SavedCalculation[] => {
-  const user = getCurrentUser();
-  if (!user) return [];
-  const data = getUserData(user.username);
-  return data?.calculations || [];
-};
-
-export const saveCalculation = (pageData: PageData, inputs: Record<string, any>): void => {
-  const user = getCurrentUser();
-  if (!user) return;
-  const data = getUserData(user.username);
-  if (data) {
-    const newCalculation: SavedCalculation = {
-      id: Date.now().toString(),
-      path: pageData.path,
-      pageTitle: pageData.title,
-      inputs,
-      date: new Date().toLocaleDateString('en-IN'),
-    };
-    data.calculations.unshift(newCalculation); // Add to the beginning
-    if (data.calculations.length > 20) { // Limit to 20 saved calculations
-        data.calculations.pop();
+export const addBookmark = (path: string) => {
+    // API_CALL: POST /api/user/bookmarks { path }
+    const data = getUserData();
+    if (data && !data.bookmarks.includes(path)) {
+        data.bookmarks.push(path);
+        saveUserData(data);
     }
-    saveUserData(user.username, data);
-  }
 };
 
-export const deleteCalculation = (id: string): void => {
-    const user = getCurrentUser();
-    if (!user) return;
-    const data = getUserData(user.username);
+export const removeBookmark = (path: string) => {
+    // API_CALL: DELETE /api/user/bookmarks { path }
+    const data = getUserData();
+    if (data) {
+        data.bookmarks = data.bookmarks.filter(b => b !== path);
+        saveUserData(data);
+    }
+};
+
+
+// Saved Calculations
+export const getSavedCalculations = (): SavedCalculation[] => {
+    // API_CALL: GET /api/user/calculations
+    const data = getUserData();
+    return data ? data.calculations : [];
+};
+
+export const saveCalculation = (pageData: PageData, inputs: Record<string, any>) => {
+    // API_CALL: POST /api/user/calculations { pageData, inputs }
+    const data = getUserData();
+    if (data) {
+        const newCalculation: SavedCalculation = {
+            id: Date.now().toString(),
+            path: pageData.path,
+            pageTitle: pageData.title,
+            inputs,
+            date: new Date().toLocaleDateString('en-IN'),
+        };
+        data.calculations.unshift(newCalculation); // Add to the top
+        saveUserData(data);
+    }
+};
+
+export const deleteCalculation = (id: string) => {
+    // API_CALL: DELETE /api/user/calculations/{id}
+    const data = getUserData();
     if (data) {
         data.calculations = data.calculations.filter(c => c.id !== id);
-        saveUserData(user.username, data);
+        saveUserData(data);
     }
 };
