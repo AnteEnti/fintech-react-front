@@ -13,6 +13,7 @@ import { updateMetaTags } from './utils/seo';
 import DashboardPage from './pages/DashboardPage';
 import InteractiveGuidePage from './pages/InteractiveGuidePage';
 import { useAuth } from './context/AuthContext';
+import CalculatorsListPage from './pages/CalculatorsListPage';
 
 const App: React.FC = () => {
   const { theme } = useLanguage();
@@ -36,6 +37,7 @@ const App: React.FC = () => {
             <Route path="/tips/:topic" element={<ContentPageWrapper />} />
             
             {/* Calculator Pages */}
+            <Route path="/calculators" element={<CalculatorsListPage />} />
             <Route path="/calculators/:group/:tool" element={<CalculatorPageWrapper />} />
 
             {/* Interactive Guides */}

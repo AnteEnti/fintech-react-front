@@ -42,14 +42,14 @@ const VacationGoalCalculator: React.FC<CalculatorProps> = ({ initialState, onSta
         requiredMonthlySavings,
         progressPercentage
     } = useMemo(() => {
-        // FIX: `total` was inferred as 'unknown', causing arithmetic and comparison errors. By strongly typing the reduce operation's arguments, `total` is correctly inferred as a number.
+        // FIX: Explicitly type the arguments of the reduce function to ensure the result is a number.
         const total = Object.values(costs).reduce((sum: number, val: string) => sum + (Number(val) || 0), 0);
         const remaining = Math.max(0, total - currentSavings);
         
-        // FIX: Removed incorrect re-declaration of `timelineMonths` that caused a reference error to 'timelineYears', and prevented division by zero.
+        // FIX: Prevent division by zero if timeline is 0 months.
         const monthlySavings = timelineMonths > 0 ? remaining / timelineMonths : 0;
         
-        // FIX: Added a check for `total > 0` before division to prevent NaN results and fix comparison errors, as `total` is now correctly typed as a number.
+        // FIX: Prevent division by zero if total cost is 0.
         const progress = total > 0 ? (currentSavings / total) * 100 : 0;
 
         return {

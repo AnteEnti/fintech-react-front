@@ -31,7 +31,7 @@ const ChoosingMutualFundGuide: React.FC = () => {
     };
 
     const calculateProfile = () => {
-        // FIX: Explicitly typing the arguments of the reduce function to prevent 'unknown' type errors.
+        // FIX: Explicitly typed the arguments of the reduce function to ensure `totalScore` is a number, resolving comparison errors.
         const totalScore = Object.values(answers).reduce((sum: number, score: number) => sum + score, 0);
         if (totalScore <= 2) setRiskProfile('Conservative');
         else if (totalScore <= 4) setRiskProfile('Moderate');

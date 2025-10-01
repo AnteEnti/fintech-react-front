@@ -24,7 +24,7 @@ const DividendYieldCalculator: React.FC<CalculatorProps> = ({ initialState, onSt
 
     const handleValidation = (field: string, value: number) => {
         const error = validator.isPositive(value);
-        setErrors(prev => ({ ...prev, [field]: error }));
+        setErrors(prev => ({ ...prev, [field]: error || '' }));
     };
 
     const { dividendYield, totalAnnualIncome } = useMemo(() => {

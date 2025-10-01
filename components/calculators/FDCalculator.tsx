@@ -30,7 +30,7 @@ const FDCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange }
 
     const handleValidation = (field: string, value: number) => {
         let error = validator.isPositive(value);
-        setErrors(prev => ({ ...prev, [field]: error }));
+        setErrors(prev => ({ ...prev, [field]: error || '' }));
     };
 
     const { maturityValue, totalInterest } = useMemo(() => {
@@ -71,12 +71,13 @@ const FDCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange }
         }]
     };
 
+    // FIX: Cast legend position to a specific string literal type to resolve TypeScript error.
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: isMd ? 'right' : 'top',
+                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             },
             tooltip: {

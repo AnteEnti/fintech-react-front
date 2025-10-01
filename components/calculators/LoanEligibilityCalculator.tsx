@@ -25,7 +25,7 @@ const LoanEligibilityCalculator: React.FC<CalculatorProps> = ({ initialState, on
 
     const handleValidation = (field: string, value: number) => {
         const error = validator.isPositive(value);
-        setErrors(prev => ({ ...prev, [field]: error }));
+        setErrors(prev => ({ ...prev, [field]: error || '' }));
     };
 
     const { eligibleLoanAmount, maxEmi } = useMemo(() => {

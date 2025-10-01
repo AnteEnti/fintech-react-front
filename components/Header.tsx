@@ -62,7 +62,7 @@ const Header: React.FC = () => {
   const navItems = [
     { path: '/', label: { en: 'Home', te: 'హోమ్' } },
     { path: '/learn/money-basics/what-is-budgeting', label: { en: 'Learn', te: 'తెలుసుకోండి' } },
-    { path: '/calculators/investment/sip', label: { en: 'Calculators', te: 'కాలిక్యులేటర్లు' } },
+    { path: '/calculators', label: { en: 'Calculators', te: 'కాలిక్యులేటర్లు' } },
     { path: '/guides/choosing-first-mutual-fund', label: { en: 'Guides', te: 'గైడ్‌లు' } },
     { path: '/compare/mf-vs-fd', label: { en: 'Comparisons', te: 'పోలికలు' } },
   ];

@@ -23,7 +23,7 @@ const CryptoInvestmentCalculator: React.FC<CalculatorProps> = ({ initialState, o
     
     const handleValidation = (field: string, value: number) => {
         const error = validator.isPositive(value);
-        setErrors(prev => ({ ...prev, [field]: error }));
+        setErrors(prev => ({ ...prev, [field]: error || '' }));
     };
 
     const { totalCost, totalValue, profitLoss, returnPercentage } = useMemo(() => {
@@ -67,32 +67,33 @@ const CryptoInvestmentCalculator: React.FC<CalculatorProps> = ({ initialState, o
                        <input id="sellPrice" type="number" value={sellPrice} onChange={e => { setSellPrice(Number(e.target.value)); handleValidation('sellPrice', Number(e.target.value)) }} className={`w-full p-3 pl-8 border rounded-lg bg-gray-50 dark:bg-slate-700 ${errors.sellPrice ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}`}/>
                     </div>
                 </div>
-                <div>
+                 <div>
                     <label htmlFor="quantity" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{language === 'en' ? 'Quantity' : 'పరిమాణం'}</label>
-                    <input id="quantity" type="number" value={quantity} onChange={e => { setQuantity(Number(e.target.value)); handleValidation('quantity', Number(e.target.value)) }} step="0.0001" className={`w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700 ${errors.quantity ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}`}/>
+                    <input id="quantity" type="number" step="0.0001" value={quantity} onChange={e => { setQuantity(Number(e.target.value)); handleValidation('quantity', Number(e.target.value)) }} className={`w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700 ${errors.quantity ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}`}/>
                 </div>
             </div>
 
             {/* Results Section */}
             <div className="lg:col-span-3">
-                <div role="status" aria-live="polite" className="bg-light dark:bg-slate-800 p-8 rounded-lg space-y-8 sticky top-24">
+                 <div role="status" aria-live="polite" className="bg-light dark:bg-slate-800 p-8 rounded-lg space-y-8 sticky top-24">
                     <div className="text-center">
                         <p className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Profit / Loss' : 'లాభం / నష్టం'}</p>
                         <p className={`text-5xl font-bold ${profitLoss >= 0 ? 'text-green-600 dark:text-green-500' : 'text-red-600 dark:text-red-500'}`}>
                             {formatCurrency(profitLoss)}
                         </p>
-                        <p className={`text-xl font-semibold ${profitLoss >= 0 ? 'text-green-600 dark:text-green-500' : 'text-red-600 dark:text-red-500'}`}>
-                            ({returnPercentage.toFixed(2)}%)
-                        </p>
                     </div>
-                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
-                        <div>
-                            <p className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Total Cost' : 'మొత్తం ఖర్చు'}</p>
-                            <p className="text-2xl font-semibold">{formatCurrency(totalCost)}</p>
+                    <div className="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <div className="flex justify-between">
+                            <span>{language === 'en' ? 'Return Percentage' : 'రాబడి శాతం'}</span>
+                            <span className={`font-semibold text-lg ${returnPercentage >= 0 ? 'text-green-600' : 'text-red-600'}`}>{returnPercentage.toFixed(2)}%</span>
                         </div>
-                        <div>
-                            <p className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Total Sale Value' : 'మొత్తం అమ్మకం విలువ'}</p>
-                            <p className="text-2xl font-semibold">{formatCurrency(totalValue)}</p>
+                        <div className="flex justify-between">
+                            <span>{language === 'en' ? 'Total Investment' : 'మొత్తం పెట్టుబడి'}</span>
+                            <span className="font-semibold">{formatCurrency(totalCost)}</span>
+                        </div>
+                         <div className="flex justify-between">
+                            <span>{language === 'en' ? 'Total Value' : 'మొత్తం విలువ'}</span>
+                            <span className="font-semibold">{formatCurrency(totalValue)}</span>
                         </div>
                     </div>
                 </div>

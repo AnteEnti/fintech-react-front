@@ -39,7 +39,7 @@ const SIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange 
                 error = validator.isInRange(value, 1, 40) || validator.isPositive(value);
                 break;
         }
-        setErrors(prev => ({ ...prev, [field]: error }));
+        setErrors(prev => ({ ...prev, [field]: error || '' }));
     }
 
     const calculationResults = useMemo(() => {

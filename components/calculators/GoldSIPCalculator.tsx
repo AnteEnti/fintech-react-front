@@ -33,7 +33,7 @@ const GoldSIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateCha
         if (!error && field === 'expectedGrowth') {
             error = validator.isInRange(value, 1, 25);
         }
-        setErrors(prev => ({ ...prev, [field]: error }));
+        setErrors(prev => ({ ...prev, [field]: error || '' }));
     }
 
     const calculationResults = useMemo(() => {
@@ -74,6 +74,7 @@ const GoldSIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateCha
         };
     }, [monthlyInvestment, expectedGrowth, timePeriod, language]);
     
+    // FIX: Cast legend position to a specific string literal type to resolve TypeScript error.
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -89,7 +90,7 @@ const GoldSIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateCha
         },
         plugins: {
             legend: {
-                position: isMd ? 'right' : 'top',
+                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             }
         }

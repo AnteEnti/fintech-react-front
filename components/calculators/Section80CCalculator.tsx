@@ -36,7 +36,7 @@ const Section80CCalculator: React.FC<CalculatorProps> = ({ initialState, onState
     };
 
     const { totalInvestment, eligibleDeduction, taxSaved } = useMemo(() => {
-        // FIX: The `total` variable was inferred as 'unknown'. By strongly typing the reduce operation's arguments, `total` is correctly inferred as a number, fixing the type error on the following line.
+        // FIX: Explicitly type the accumulator and value in the reduce function to ensure the result is a number.
         const total = Object.values(investments).reduce((sum: number, val: string) => sum + (Number(val) || 0), 0);
         const deduction = Math.min(total, 150000);
         const saved = deduction * (taxSlab / 100);

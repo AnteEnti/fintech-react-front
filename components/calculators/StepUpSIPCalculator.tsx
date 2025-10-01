@@ -34,7 +34,7 @@ const StepUpSIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateC
         if (!error && (field === 'expectedReturn' || field === 'stepUpPercentage')) {
             error = validator.isInRange(value, 1, 30);
         }
-        setErrors(prev => ({ ...prev, [field]: error }));
+        setErrors(prev => ({ ...prev, [field]: error || '' }));
     }
 
     const calculationResults = useMemo(() => {
@@ -90,6 +90,7 @@ const StepUpSIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateC
         };
     }, [monthlyInvestment, stepUpPercentage, expectedReturn, timePeriod, language]);
     
+    // FIX: Cast legend position to a specific string literal type to resolve TypeScript error.
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -105,7 +106,7 @@ const StepUpSIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateC
         },
         plugins: {
             legend: {
-                position: isMd ? 'right' : 'top',
+                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             }
         }

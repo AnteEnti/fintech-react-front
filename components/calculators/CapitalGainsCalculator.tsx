@@ -70,12 +70,13 @@ const CapitalGainsCalculator: React.FC = () => {
         }]
     };
 
+    // FIX: Cast legend position to a specific string literal type to resolve TypeScript error.
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: isMd ? 'right' : 'top',
+                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             }
         }

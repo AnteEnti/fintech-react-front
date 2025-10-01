@@ -38,6 +38,7 @@ export interface PageData {
   interlinks: Link[];
   componentName?: string;
   isProtected?: boolean;
+  icon?: string;
 }
 
 export interface SitemapCategory {

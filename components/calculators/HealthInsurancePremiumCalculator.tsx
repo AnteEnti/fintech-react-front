@@ -26,7 +26,7 @@ const HealthInsurancePremiumCalculator: React.FC<CalculatorProps> = ({ initialSt
     const handleValidation = (field: string, value: number) => {
         let error = validator.isPositive(value);
         if (!error && field === 'age') error = validator.isInRange(value, 18, 65);
-        setErrors(prev => ({ ...prev, [field]: error }));
+        setErrors(prev => ({ ...prev, [field]: error || '' }));
     };
 
     const estimatedPremium = useMemo(() => {
