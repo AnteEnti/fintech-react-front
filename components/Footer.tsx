@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
 const Footer: React.FC = () => {
@@ -16,17 +17,17 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">{language === 'en' ? 'Quick Links' : 'త్వరిత లింకులు'}</h3>
             <ul className="space-y-2">
-              <li><a href="#/about" className="text-gray-400 hover:text-white">About Us</a></li>
-              <li><a href="#/contact" className="text-gray-400 hover:text-white">Contact</a></li>
-              <li><a href="#/faq" className="text-gray-400 hover:text-white">FAQ</a></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-white">About Us</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-white">Contact</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-white">FAQ</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-4">{language === 'en' ? 'Legal' : 'చట్టపరమైన'}</h3>
             <ul className="space-y-2">
-              <li><a href="#/legal/privacy-policy" className="text-gray-400 hover:text-white">Privacy Policy</a></li>
-              <li><a href="#/legal/terms-of-use" className="text-gray-400 hover:text-white">Terms of Use</a></li>
-              <li><a href="#/legal/disclaimer" className="text-gray-400 hover:text-white">Disclaimer</a></li>
+              <li><Link to="/legal/privacy-policy" className="text-gray-400 hover:text-white">Privacy Policy</Link></li>
+              <li><Link to="/legal/terms-of-use" className="text-gray-400 hover:text-white">Terms of Use</Link></li>
+              <li><Link to="/legal/disclaimer" className="text-gray-400 hover:text-white">Disclaimer</Link></li>
             </ul>
           </div>
         </div>

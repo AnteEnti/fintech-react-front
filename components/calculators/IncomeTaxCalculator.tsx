@@ -37,40 +37,30 @@ const IncomeTaxCalculator: React.FC<CalculatorProps> = ({ initialState, onStateC
         let taxableIncome = annualIncome - standardDeduction;
 
         if (taxableIncome <= 700000) {
-            // Rebate under 87A
+            // Rebate under 87A makes tax zero
             return 0;
         }
 
         let tax = 0;
+        // Slab 1: 0 - 3L -> 0 tax
         if (taxableIncome > 300000) {
-            if (taxableIncome <= 600000) {
-                tax += (taxableIncome - 300000) * 0.05;
-            } else {
-                tax += (300000) * 0.05; // 15,000
-            }
+            // Slab 2: 3L - 6L -> 5%
+            tax += Math.min(300000, taxableIncome - 300000) * 0.05;
         }
         if (taxableIncome > 600000) {
-            if (taxableIncome <= 900000) {
-                tax += (taxableIncome - 900000) * 0.10;
-            } else {
-                tax += (300000) * 0.10; // 30,000
-            }
+            // Slab 3: 6L - 9L -> 10%
+            tax += Math.min(300000, taxableIncome - 600000) * 0.10;
         }
         if (taxableIncome > 900000) {
-            if (taxableIncome <= 1200000) {
-                tax += (taxableIncome - 900000) * 0.15;
-            } else {
-                tax += (300000) * 0.15; // 45,000
-            }
+            // Slab 4: 9L - 12L -> 15%
+            tax += Math.min(300000, taxableIncome - 900000) * 0.15;
         }
         if (taxableIncome > 1200000) {
-            if (taxableIncome <= 1500000) {
-                tax += (taxableIncome - 1200000) * 0.20;
-            } else {
-                tax += (300000) * 0.20; // 60,000
-            }
+            // Slab 5: 12L - 15L -> 20%
+            tax += Math.min(300000, taxableIncome - 1200000) * 0.20;
         }
         if (taxableIncome > 1500000) {
+            // Slab 6: > 15L -> 30%
             tax += (taxableIncome - 1500000) * 0.30;
         }
         

@@ -14,6 +14,9 @@ import DashboardPage from './pages/DashboardPage';
 import InteractiveGuidePage from './pages/InteractiveGuidePage';
 import { useAuth } from './context/AuthContext';
 import CalculatorsListPage from './pages/CalculatorsListPage';
+import SearchResultsPage from './pages/SearchResultsPage';
+import PostPage from './pages/PostPage';
+import LearnPage from './pages/LearnPage';
 
 const App: React.FC = () => {
   const { theme } = useLanguage();
@@ -31,7 +34,11 @@ const App: React.FC = () => {
         <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-8">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            {/* Blog Post Page */}
+            <Route path="/post/:slug" element={<PostPage />} />
+            
             {/* Content Pages */}
+            <Route path="/learn" element={<LearnPage />} />
             <Route path="/learn/:category/:topic" element={<ContentPageWrapper />} />
             <Route path="/compare/:topic" element={<ContentPageWrapper />} />
             <Route path="/tips/:topic" element={<ContentPageWrapper />} />
@@ -42,6 +49,9 @@ const App: React.FC = () => {
 
             {/* Interactive Guides */}
             <Route path="/guides/:topic" element={<InteractiveGuidePageWrapper />} />
+            
+            {/* Search Page */}
+            <Route path="/search" element={<SearchResultsPage />} />
 
             {/* Static Pages */}
             <Route path="/about" element={<StaticPage pageKey="about" />} />
