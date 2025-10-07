@@ -151,12 +151,155 @@ export const SITEMAP_DATA: Sitemap = {
         type: PageType.INTERACTIVE_GUIDE,
         title: { en: 'Guide: Choosing Your First Mutual Fund', te: 'గైడ్: మీ మొదటి మ్యూచువల్ ఫండ్‌ను ఎంచుకోవడం' },
         description: { en: 'An interactive, step-by-step guide to help you understand your risk profile and select the right type of mutual fund for your investment journey.', te: 'మీ రిస్క్ ప్రొఫైల్‌ను అర్థం చేసుకోవడంలో మరియు మీ పెట్టుబడి ప్రయాణానికి సరైన రకమైన మ్యూచువల్ ఫండ్‌ను ఎంచుకోవడంలో మీకు సహాయపడటానికి ఒక ఇంటరాక్టివ్, దశల వారీ గైడ్.' },
-        interlinks: [
-            { path: '/learn/investing/what-is-sip', title: { en: 'What is a SIP?', te: 'SIP అంటే ఏమిటి?' } },
-            { path: '/calculators/investment/sip', title: { en: 'SIP Calculator', te: 'SIP కాలిక్యులేటర్' } }
-        ],
-        componentName: 'ChoosingMutualFundGuide',
-    }
+        interlinks: [], componentName: 'ChoosingMutualFundGuide', icon: 'plant'
+    },
+    {
+        path: '/guides/financial-health-checkup',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Financial Health Check-up', te: 'ఆర్థిక ఆరోగ్య తనిఖీ' },
+        description: { en: 'Get a "financial health score" and identify areas for improvement based on your income, expenses, and savings.', te: 'మీ ఆదాయం, ఖర్చులు మరియు పొదుపుల ఆధారంగా "ఆర్థిక ఆరోగ్య స్కోరు" పొందండి మరియు మెరుగుదల కోసం ప్రాంతాలను గుర్తించండి.' },
+        interlinks: [], componentName: 'FinancialHealthCheckupGuide', icon: 'default'
+    },
+    {
+        path: '/guides/debt-reduction-strategy',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Debt Reduction Strategy Guide', te: 'అప్పుల తగ్గింపు వ్యూహ గైడ్' },
+        description: { en: 'Recommends the best strategy (Snowball vs. Avalanche) to pay off multiple loans or credit card debts.', te: 'బహుళ రుణాలు లేదా క్రెడిట్ కార్డ్ అప్పులను చెల్లించడానికి ఉత్తమ వ్యూహాన్ని (స్నోబాల్ vs. అవలాంచ్) సిఫార్సు చేస్తుంది.' },
+        interlinks: [], componentName: 'DebtReductionGuide', icon: 'calculator'
+    },
+    {
+        path: '/guides/savings-placement-guide',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: '"Where Should I Put My Savings?" Guide', te: 'నా పొదుపును ఎక్కడ పెట్టాలి? గైడ్' },
+        description: { en: 'Helps users choose between a Savings Account, Fixed Deposit (FD), or a Liquid Mutual Fund for their short-term savings.', te: 'వినియోగదారులు తమ స్వల్పకాలిక పొదుపుల కోసం సేవింగ్స్ ఖాతా, ఫిక్స్‌డ్ డిపాజిట్ (FD), లేదా లిక్విడ్ మ్యూచువల్ ఫండ్ మధ్య ఎంచుకోవడానికి సహాయపడుతుంది.' },
+        interlinks: [], componentName: 'SavingsPlacementGuide', icon: 'wallet'
+    },
+    {
+        path: '/guides/asset-allocation-planner',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Asset Allocation Planner', te: 'ఆస్తి కేటాయింపు ప్లానర్' },
+        description: { en: 'Creates a personalized investment portfolio mix based on age and risk tolerance.', te: 'వయస్సు మరియు రిస్క్ సహనం ఆధారంగా వ్యక్తిగతీకరించిన పెట్టుబడి పోర్ట్‌ఫోలియో మిశ్రమాన్ని సృష్టిస్తుంది.' },
+        interlinks: [], componentName: 'AssetAllocationPlanner', icon: 'chart-up'
+    },
+    {
+        path: '/guides/stocks-vs-mutual-funds',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Direct Stocks vs. Mutual Funds Selector', te: 'డైరెక్ట్ స్టాక్స్ vs. మ్యూచువల్ ఫండ్స్ సెలెక్టర్' },
+        description: { en: 'Helps a beginner decide whether to start with individual stocks or mutual funds.', te: 'ఒక ప్రారంభకుడు వ్యక్తిగత స్టాక్స్‌తోనా లేదా మ్యూచువల్ ఫండ్స్‌తోనా ప్రారంభించాలా అని నిర్ణయించుకోవడానికి సహాయపడుతుంది.' },
+        interlinks: [], componentName: 'StocksVsMutualFundsGuide', icon: 'chart-up'
+    },
+    {
+        path: '/guides/gold-investment-guide',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Physical Gold vs. SGB vs. Gold ETF Guide', te: 'భౌతిక బంగారం vs. SGB vs. గోల్డ్ ETF గైడ్' },
+        description: { en: 'Recommends the best way to invest in gold based on the user\'s goal.', te: 'వినియోగదారు లక్ష్యం ఆధారంగా బంగారంలో పెట్టుబడి పెట్టడానికి ఉత్తమ మార్గాన్ని సిఫార్సు చేస్తుంది.' },
+        interlinks: [], componentName: 'GoldInvestmentGuide', icon: 'wallet'
+    },
+    {
+        path: '/guides/nps-suitability-guide',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'National Pension System (NPS) Suitability Guide', te: 'NPS అనుకూలత గైడ్' },
+        description: { en: 'Helps the user decide if NPS is the right retirement tool for them.', te: 'NPS తమకు సరైన పదవీ విరమణ సాధనమా అని వినియోగదారు నిర్ణయించుకోవడానికి సహాయపడుతుంది.' },
+        interlinks: [], componentName: 'NpsSuitabilityGuide', icon: 'piggy-bank'
+    },
+    {
+        path: '/guides/post-office-scheme-selector',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Post Office Scheme Selector', te: 'పోస్ట్ ఆఫీస్ పథకం సెలెక్టర్' },
+        description: { en: 'Recommends the best Post Office scheme for a specific need (e.g., for a girl child, senior citizen).', te: 'ఒక నిర్దిష్ట అవసరం కోసం (ఉదా., ఆడపిల్ల, సీనియర్ సిటిజన్ కోసం) ఉత్తమ పోస్ట్ ఆఫీస్ పథకాన్ని సిఫార్సు చేస్తుంది.' },
+        interlinks: [], componentName: 'PostOfficeSchemeSelector', icon: 'document'
+    },
+    {
+        path: '/guides/home-loan-prepayment-vs-investment',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Home Loan: Pre-payment vs. New Investment Guide', te: 'గృహ రుణం: ముందస్తు చెల్లింపు vs. కొత్త పెట్టుబడి గైడ్' },
+        description: { en: 'Helps decide whether to use a lump sum amount to pre-pay a home loan or invest it elsewhere.', te: 'ఒక ఏకమొత్తం డబ్బును గృహ రుణం ముందస్తుగా చెల్లించడానికా లేదా మరెక్కడైనా పెట్టుబడి పెట్టడానికా అని నిర్ణయించుకోవడానికి సహాయపడుతుంది.' },
+        interlinks: [], componentName: 'HomeLoanPrepaymentGuide', icon: 'calculator'
+    },
+    {
+        path: '/guides/buy-vs-rent-house',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Buy vs. Rent a House Decision Maker', te: 'ఇల్లు కొనాలా? అద్దెకు ఉండాలా? నిర్ణయ సాధనం' },
+        description: { en: 'A comprehensive guide to help with one of the biggest financial decisions.', te: 'అతిపెద్ద ఆర్థిక నిర్ణయాలలో ఒకదానితో సహాయపడటానికి ఒక సమగ్ర గైడ్.' },
+        interlinks: [], componentName: 'BuyVsRentGuide', icon: 'calculator'
+    },
+    {
+        path: '/guides/should-i-take-personal-loan',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Personal Loan: "Should I Take It?" Guide', te: 'వ్యక్తిగత రుణం: "నేను తీసుకోవాలా?" గైడ్' },
+        description: { en: 'A checklist to determine if taking a high-interest personal loan is a sensible decision.', te: 'అధిక-వడ్డీ వ్యక్తిగత రుణం తీసుకోవడం ఒక తెలివైన నిర్ణయమా అని నిర్ధారించడానికి ఒక చెక్‌లిస్ట్.' },
+        interlinks: [], componentName: 'PersonalLoanGuide', icon: 'calculator'
+    },
+    {
+        path: '/guides/old-vs-new-tax-regime',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Old vs. New Tax Regime Selector', te: 'పాత vs. కొత్త పన్ను విధానం సెలెక్టర్' },
+        description: { en: 'Calculates the user\'s tax liability under both regimes to show which is better for them.', te: 'వినియోగదారు పన్ను బాధ్యతను రెండు విధానాల కింద లెక్కించి, వారికి ఏది ఉత్తమమో చూపిస్తుంది.' },
+        interlinks: [], componentName: 'TaxRegimeSelectorGuide', icon: 'calculator'
+    },
+    {
+        path: '/guides/personalized-80c-guide',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Personalized 80C Investment Guide', te: 'వ్యక్తిగతీకరించిన 80C పెట్టుబడి గైడ్' },
+        description: { en: 'Recommends the best 80C instruments to fill the ₹1.5 Lakh limit based on risk profile.', te: 'రిస్క్ ప్రొఫైల్ ఆధారంగా ₹1.5 లక్షల పరిమితిని పూరించడానికి ఉత్తమ 80C సాధనాలను సిఫార్సు చేస్తుంది.' },
+        interlinks: [], componentName: 'Personalized80cGuide', icon: 'wallet'
+    },
+    {
+        path: '/guides/first-time-tax-filer',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'First-Time Tax Filer\'s Guide', te: 'మొదటిసారి పన్ను చెల్లింపుదారుల గైడ్' },
+        description: { en: 'An interactive checklist to guide a young professional through the tax filing process.', te: 'ఒక యువ వృత్తి నిపుణుడిని పన్ను ఫైలింగ్ ప్రక్రియ ద్వారా మార్గనిర్దేశం చేయడానికి ఒక ఇంటరాక్టివ్ చెక్‌లిస్ట్.' },
+        interlinks: [], componentName: 'FirstTimeTaxFilerGuide', icon: 'document'
+    },
+    {
+        path: '/guides/health-insurance-sum-insured',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Health Insurance "Sum Insured" Guide', te: 'ఆరోగ్య బీమా "సమ్ ఇన్సూర్డ్" గైడ్' },
+        description: { en: 'Recommends an appropriate health insurance coverage amount based on family size and city.', te: 'కుటుంబ పరిమాణం మరియు నగరం ఆధారంగా తగిన ఆరోగ్య బీమా కవరేజ్ మొత్తాన్ని సిఫార్సు చేస్తుంది.' },
+        interlinks: [], componentName: 'HealthInsuranceSumInsuredGuide', icon: 'document'
+    },
+    {
+        path: '/guides/term-vs-ulip-vs-endowment',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Term vs. ULIP vs. Endowment Plan Selector', te: 'టర్మ్ vs. యులిప్ vs. ఎండోమెంట్ ప్లాన్ సెలెక్టర్' },
+        description: { en: 'Clarifies the confusion between different life insurance products based on user goals.', te: 'వినియోగదారు లక్ష్యాల ఆధారంగా వివిధ జీవిత బీమా ఉత్పత్తుల మధ్య గందరగోళాన్ని స్పష్టం చేస్తుంది.' },
+        interlinks: [], componentName: 'InsuranceTypeSelectorGuide', icon: 'document'
+    },
+    {
+        path: '/guides/child-university-fund-planner',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: "Child's University Fund Planner", te: 'పిల్లల యూనివర్శిటీ ఫండ్ ప్లానర్' },
+        description: { en: 'Calculates the future cost of higher education and the monthly SIP required to reach that goal.', te: 'ఉన్నత విద్య యొక్క భవిష్యత్ వ్యయాన్ని మరియు ఆ లక్ష్యాన్ని చేరుకోవడానికి అవసరమైన నెలవారీ SIPని లెక్కిస్తుంది.' },
+        interlinks: [], componentName: 'ChildUniversityFundPlanner', icon: 'calculator'
+    },
+    {
+        path: '/guides/early-retirement-simulator',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: '"Can I Retire Early?" Simulator', te: '"నేను ముందుగా పదవీ విరమణ చేయగలనా?" సిమ్యులేటర్' },
+        description: { en: 'Simulates if a user can achieve Financial Independence, Retire Early (FIRE) based on their savings.', te: 'ఒక వినియోగదారు తమ పొదుపుల ఆధారంగా ఆర్థిక స్వాతంత్ర్యం, ముందుగా పదవీ విరమణ (FIRE) సాధించగలరా అని అనుకరిస్తుంది.' },
+        interlinks: [], componentName: 'EarlyRetirementSimulator', icon: 'chart-up'
+    },
+    {
+        path: '/guides/car-purchase-planner',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Car Purchase Planner (Loan vs. Down Payment)', te: 'కారు కొనుగోలు ప్లానర్ (లోన్ vs. డౌన్ పేమెంట్)' },
+        description: { en: 'Helps decide how much down payment to make vs. how much loan to take for a car.', te: 'ఒక కారు కోసం ఎంత డౌన్ పేమెంట్ చేయాలో వర్సెస్ ఎంత రుణం తీసుకోవాలో నిర్ణయించుకోవడానికి సహాయపడుతుంది.' },
+        interlinks: [], componentName: 'CarPurchasePlanner', icon: 'calculator'
+    },
+    {
+        path: '/guides/nri-investment-starter',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'NRI Investment Starter Guide', te: 'NRI పెట్టుబడి స్టార్టర్ గైడ్' },
+        description: { en: 'Helps Non-Resident Indians (NRIs) choose the right bank account and initial investments in India.', te: 'భారతదేశంలో ప్రవాస భారతీయులు (NRIలు) సరైన బ్యాంకు ఖాతా మరియు ప్రారంభ పెట్టుబడులను ఎంచుకోవడానికి సహాయపడుతుంది.' },
+        interlinks: [], componentName: 'NriInvestmentStarterGuide', icon: 'wallet'
+    },
+    {
+        path: '/guides/small-business-tax-planner',
+        type: PageType.INTERACTIVE_GUIDE,
+        title: { en: 'Small Business / Freelancer Tax Planner', te: 'చిన్న వ్యాపారం / ఫ్రీలాన్సర్ టాక్స్ ప్లానర్' },
+        description: { en: 'Helps choose between the Presumptive scheme (44ADA) and filing regular books.', te: 'ప్రిజంప్టివ్ పథకం (44ADA) మరియు సాధారణ పుస్తకాలను ఫైల్ చేయడం మధ్య ఎంచుకోవడానికి సహాయపడుతుంది.' },
+        interlinks: [], componentName: 'SmallBusinessTaxPlanner', icon: 'calculator'
+    },
   ],
 };
 

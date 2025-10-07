@@ -63,7 +63,7 @@ const Header: React.FC = () => {
     { path: '/', label: { en: 'Home', te: 'హోమ్' } },
     { path: '/learn', label: { en: 'Learn', te: 'తెలుసుకోండి' } },
     { path: '/calculators', label: { en: 'Calculators', te: 'కాలిక్యులేటర్లు' } },
-    { path: '/guides/choosing-first-mutual-fund', label: { en: 'Guides', te: 'గైడ్‌లు' } },
+    { path: '/guides', label: { en: 'Guides', te: 'గైడ్‌లు' } },
     { path: '/compare/mf-vs-fd', label: { en: 'Comparisons', te: 'పోలికలు' } },
   ];
 

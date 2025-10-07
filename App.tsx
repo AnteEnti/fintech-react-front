@@ -17,6 +17,7 @@ import CalculatorsListPage from './pages/CalculatorsListPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import PostPage from './pages/PostPage';
 import LearnPage from './pages/LearnPage';
+import GuidesListPage from './pages/GuidesListPage';
 
 const App: React.FC = () => {
   const { theme } = useLanguage();
@@ -48,6 +49,7 @@ const App: React.FC = () => {
             <Route path="/calculators/:group/:tool" element={<CalculatorPageWrapper />} />
 
             {/* Interactive Guides */}
+            <Route path="/guides" element={<GuidesListPage />} />
             <Route path="/guides/:topic" element={<InteractiveGuidePageWrapper />} />
             
             {/* Search Page */}
