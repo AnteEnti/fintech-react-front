@@ -61,14 +61,20 @@ const LoanEligibilityCalculator: React.FC<CalculatorProps> = ({ initialState, on
             {/* Input Section */}
             <div className="lg:col-span-2 space-y-6">
                 <div>
-                    <label htmlFor="monthlyIncome" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{language === 'en' ? 'Net Monthly Income' : 'నికర నెలవారీ ఆదాయం'}</label>
+                    <label htmlFor="monthlyIncome" className="flex items-center text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        {language === 'en' ? 'Net Monthly Income' : 'నికర నెలవారీ ఆదాయం'}
+                        <Tooltip text={language === 'en' ? 'Your take-home salary after all deductions like PF, tax, etc.' : 'PF, పన్ను మొదలైన అన్ని తగ్గింపుల తర్వాత మీ ఇంటికి తీసుకువెళ్ళే జీతం.'} />
+                    </label>
                     <div className="relative">
                        <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 dark:text-gray-400">₹</span>
                        <input id="monthlyIncome" type="number" value={monthlyIncome} onChange={e => { setMonthlyIncome(Number(e.target.value)); handleValidation('monthlyIncome', Number(e.target.value)) }} className={`w-full p-3 pl-8 border rounded-lg bg-gray-50 dark:bg-slate-700 ${errors.monthlyIncome ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}`}/>
                     </div>
                 </div>
                 <div>
-                    <label htmlFor="currentEmi" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{language === 'en' ? 'Current Monthly EMIs' : 'ప్రస్తుత నెలవారీ EMIలు'}</label>
+                    <label htmlFor="currentEmi" className="flex items-center text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        {language === 'en' ? 'Current Monthly EMIs' : 'ప్రస్తుత నెలవారీ EMIలు'}
+                        <Tooltip text={language === 'en' ? 'The total of all existing loan EMIs you are currently paying.' : 'మీరు ప్రస్తుతం చెల్లిస్తున్న అన్ని ప్రస్తుత లోన్ EMIల మొత్తం.'} />
+                    </label>
                     <div className="relative">
                        <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 dark:text-gray-400">₹</span>
                        <input id="currentEmi" type="number" value={currentEmi} onChange={e => { setCurrentEmi(Number(e.target.value)); handleValidation('currentEmi', Number(e.target.value)) }} className={`w-full p-3 pl-8 border rounded-lg bg-gray-50 dark:bg-slate-700 ${errors.currentEmi ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}`}/>

@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { updateMetaTags } from '../utils/seo';
 import LoadingSpinner from '../components/LoadingSpinner';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { PageData, PageType } from '../types';
 
 const GRAPHQL_URL = 'https://wp.amadeinandhra.com/graphql';
 
@@ -27,6 +29,7 @@ const PostPage: React.FC = () => {
   const [content, setContent] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [breadcrumbData, setBreadcrumbData] = useState<PageData | null>(null);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -34,6 +37,7 @@ const PostPage: React.FC = () => {
         setError(null);
         setContent(null);
         setPostTitle('');
+        setBreadcrumbData(null);
 
         if (!slug) {
             setError(language === 'en' ? 'Could not find post identifier.' : 'పోస్ట్ ఐడెంటిఫైయర్ కనుగొనబడలేదు.');
@@ -67,16 +71,29 @@ const PostPage: React.FC = () => {
                 throw new Error('Post not found.');
             }
             
-            const finalTitle = language === 'te' ? post.telugutitle : post.englishtitle;
-            const finalContent = language === 'te' ? post.telugucontent : post.englishcontent;
+            const enTitle = post.englishtitle || 'Post';
+            const teTitle = post.telugutitle || 'పోస్ట్';
+            const finalTitle = language === 'te' ? teTitle : enTitle;
+            const htmlContent = language === 'te' ? post.telugucontent : post.englishcontent;
 
             const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = finalTitle || '';
+            tempDiv.innerHTML = finalTitle;
             const cleanedTitle = tempDiv.textContent || tempDiv.innerText || '';
-
-            setContent(finalContent);
+            
+            setContent(htmlContent || '');
             setPostTitle(cleanedTitle);
             updateMetaTags(`${cleanedTitle} | Telugu Finance Platform`, 'A post from our blog.');
+            
+            // Create a mock PageData object for the Breadcrumbs component
+            setBreadcrumbData({
+                path: `/post/${slug}`,
+                type: PageType.LEARN, // Assuming posts belong under a general "learn" or "blog" category
+                title: { en: enTitle, te: teTitle },
+                description: { en: '', te: '' },
+                category: { en: 'Blog', te: 'బ్లాగ్' },
+                interlinks: []
+            });
+
 
         } catch (e: any) {
             setError(language === 'en' ? `Failed to load post: ${e.message}` : `పోస్ట్ లోడ్ చేయడంలో విఫలమైంది: ${e.message}`);
@@ -88,39 +105,20 @@ const PostPage: React.FC = () => {
     fetchContent();
   }, [slug, language]);
 
-  const renderPostContent = () => {
-    if (isLoading) {
-      return <LoadingSpinner />;
-    }
-    if (error) {
-      return <p className="text-red-500 text-center py-8">{error}</p>;
-    }
-    if (content) {
-      return (
-        <div
-          className="prose max-w-none text-gray-700 dark:text-gray-300
-                     prose-h1:text-primary dark:prose-h1:text-blue-300
-                     prose-h2:text-secondary dark:prose-h2:text-blue-400
-                     prose-a:text-accent hover:prose-a:text-orange-700
-                     dark:prose-a:text-orange-400 dark:hover:prose-a:text-orange-300
-                     dark:prose-strong:text-gray-200
-                     dark:prose-blockquote:border-gray-600 dark:prose-blockquote:text-gray-400"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      );
-    }
-    return null;
-  };
-
   return (
     <div className="max-w-4xl mx-auto">
-        <article className="bg-white dark:bg-dark p-6 sm:p-8 rounded-lg shadow-lg min-h-[400px]">
-          {postTitle && (
-            <h1 className="text-3xl md:text-4xl font-extrabold text-primary dark:text-blue-300 mb-6">{postTitle}</h1>
-          )}
-          {renderPostContent()}
-        </article>
+      {breadcrumbData && <Breadcrumbs pageData={breadcrumbData} />}
+      <div className="bg-white dark:bg-dark p-6 sm:p-8 rounded-lg shadow-xl mt-4 min-h-[400px]">
+        {isLoading && <LoadingSpinner />}
+        {error && <p className="text-red-500 text-center py-8">{error}</p>}
+        {content && (
+            <article
+                className="prose dark:prose-invert lg:prose-lg"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+        )}
       </div>
+    </div>
   );
 };
 

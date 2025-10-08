@@ -32,7 +32,7 @@ const App: React.FC = () => {
     <HashRouter>
       <div className="bg-light dark:bg-slate-900 min-h-screen flex flex-col font-sans text-dark dark:text-gray-300">
         <Header />
-        <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-8">
+        <main id="main-content" tabIndex={-1} className="flex-grow w-full px-4 sm:px-6 lg:px-8 py-8">
           <Routes>
             <Route path="/" element={<HomePage />} />
             {/* Blog Post Page */}

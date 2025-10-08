@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { PageData } from '../types';
+import { PageData, PageType } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 
 const ChevronRightIcon = () => (
@@ -20,17 +20,32 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ pageData }) => {
   const getBreadcrumbs = () => {
     const crumbs = [{ title: language === 'en' ? 'Home' : 'హోమ్', path: '/' }];
     let typeDisplay = '';
+    let typePath = '#';
     
     switch(pageData.type) {
-        case 'LEARN': typeDisplay = language === 'en' ? 'Learn' : 'తెలుసుకోండి'; break;
-        case 'CALCULATOR': typeDisplay = language === 'en' ? 'Calculators' : 'కాలిక్యులేటర్లు'; break;
-        case 'COMPARISON': typeDisplay = language === 'en' ? 'Comparisons' : 'పోలికలు'; break;
-        case 'TIP': typeDisplay = language === 'en' ? 'Tips' : 'చిట్కాలు'; break;
+        case PageType.LEARN:
+            typeDisplay = language === 'en' ? 'Learn' : 'తెలుసుకోండి';
+            typePath = '/learn';
+            break;
+        case PageType.CALCULATOR:
+            typeDisplay = language === 'en' ? 'Calculators' : 'కాలిక్యులేటర్లు';
+            typePath = '/calculators';
+            break;
+        case PageType.INTERACTIVE_GUIDE:
+            typeDisplay = language === 'en' ? 'Guides' : 'గైడ్‌లు';
+            typePath = '/guides';
+            break;
+        case PageType.COMPARISON:
+            typeDisplay = language === 'en' ? 'Comparisons' : 'పోలికలు';
+            break;
+        case PageType.TIP:
+            typeDisplay = language === 'en' ? 'Tips' : 'చిట్కాలు';
+            break;
         default: break;
     }
     
     if (typeDisplay) {
-        crumbs.push({ title: typeDisplay, path: '#' });
+        crumbs.push({ title: typeDisplay, path: typePath });
     }
     if (pageData.category) {
         crumbs.push({ title: pageData.category[language], path: '#' });
@@ -50,12 +65,12 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ pageData }) => {
       <ol className="list-none p-0 inline-flex items-center space-x-2">
         {crumbs.map((crumb, index) => (
           <li key={index} className="flex items-center">
-            {index < crumbs.length - 1 ? (
+            {index < crumbs.length - 1 && crumb.path !== '#' ? (
               <Link to={crumb.path} className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-blue-300">
                 {crumb.title}
               </Link>
             ) : (
-              <span className="text-gray-800 dark:text-gray-200 font-medium">{crumb.title}</span>
+              <span className={index < crumbs.length - 1 ? "text-gray-600 dark:text-gray-400" : "text-gray-800 dark:text-gray-200 font-medium"}>{crumb.title}</span>
             )}
             {index < crumbs.length - 1 && (
               <ChevronRightIcon />

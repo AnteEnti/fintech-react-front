@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import Tooltip from '../Tooltip';
 
 interface CalculatorProps {
     initialState?: Record<string, any>;
@@ -15,6 +16,7 @@ interface InvestmentFields {
     other: string;
 }
 
+// FIX: Replaced destructuring with default empty object for `initialState` with optional chaining to prevent TypeScript errors when properties are accessed.
 const Section80CCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange }) => {
     const { language } = useLanguage();
     const [investments, setInvestments] = useState<InvestmentFields>(initialState?.investments || {
@@ -36,7 +38,7 @@ const Section80CCalculator: React.FC<CalculatorProps> = ({ initialState, onState
     };
 
     const { totalInvestment, eligibleDeduction, taxSaved } = useMemo(() => {
-        // FIX: Explicitly type the accumulator and value in the reduce function to ensure the result is a number.
+        // FIX: Explicitly typed the accumulator and value in the reduce function to ensure the result is a number.
         const total = Object.values(investments).reduce((sum: number, val: string) => sum + (Number(val) || 0), 0);
         const deduction = Math.min(total, 150000);
         const saved = deduction * (taxSlab / 100);
@@ -86,7 +88,10 @@ const Section80CCalculator: React.FC<CalculatorProps> = ({ initialState, onState
                     <InvestmentInput name="other" label={language === 'en' ? 'Other (NSC, FD, etc.)' : 'ఇతర (NSC, FD, మొదలైనవి)'} />
                 </div>
                 <div className="mt-6">
-                    <label htmlFor="taxSlab" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{language === 'en' ? 'Your Income Tax Slab' : 'మీ ఆదాయపు పన్ను స్లాబ్'}</label>
+                    <label htmlFor="taxSlab" className="flex items-center text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        {language === 'en' ? 'Your Income Tax Slab' : 'మీ ఆదాయపు పన్ను స్లాబ్'}
+                        <Tooltip text={language === 'en' ? 'Select the highest tax rate applicable to your income. This helps in calculating the exact amount of tax you save.' : 'మీ ఆదాయానికి వర్తించే అత్యధిక పన్ను రేటును ఎంచుకోండి. ఇది మీరు ఆదా చేసే పన్ను యొక్క ఖచ్చితమైన మొత్తాన్ని లెక్కించడంలో సహాయపడుతుంది.'} />
+                    </label>
                      <select id="taxSlab" value={taxSlab} onChange={e => setTaxSlab(Number(e.target.value))} className="w-full p-2 border rounded-lg bg-gray-50 dark:bg-slate-700">
                         <option value="5">5%</option>
                         <option value="10">10%</option>

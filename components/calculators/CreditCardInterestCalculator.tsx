@@ -3,6 +3,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip as ChartTooltip, Legend } from 'chart.js';
 import useBreakpoint from '../../hooks/useBreakpoint';
+import Tooltip from '../Tooltip';
 
 ChartJS.register(ArcElement, ChartTooltip, Legend);
 
@@ -84,7 +85,7 @@ const CreditCardInterestCalculator: React.FC<CalculatorProps> = ({ initialState,
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
+                position: (isMd ? 'right' : 'top') as ('top' | 'right' | 'left' | 'bottom' | 'chartArea'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             }
         }
@@ -95,15 +96,24 @@ const CreditCardInterestCalculator: React.FC<CalculatorProps> = ({ initialState,
             {/* Input Section */}
             <div className="lg:col-span-2 space-y-6">
                  <div>
-                    <label htmlFor="outstandingBalance" className="block text-sm font-medium mb-2">{language === 'en' ? 'Outstanding Balance' : 'బాకీ ఉన్న బ్యాలెన్స్'}</label>
+                    <label htmlFor="outstandingBalance" className="flex items-center text-sm font-medium mb-2">
+                        {language === 'en' ? 'Outstanding Balance' : 'బాకీ ఉన్న బ్యాలెన్స్'}
+                        <Tooltip text={language === 'en' ? 'The total amount you currently owe on your credit card.' : 'మీరు ప్రస్తుతం మీ క్రెడిట్ కార్డ్‌పై బాకీ ఉన్న మొత్తం.'} />
+                    </label>
                     <input id="outstandingBalance" type="number" value={outstandingBalance} onChange={e => setOutstandingBalance(Number(e.target.value))} className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                 </div>
                  <div>
-                    <label htmlFor="apr" className="block text-sm font-medium mb-2">{language === 'en' ? 'Annual Interest Rate (APR %)' : 'వార్షిక వడ్డీ రేటు (APR %)'}</label>
+                    <label htmlFor="apr" className="flex items-center text-sm font-medium mb-2">
+                        {language === 'en' ? 'Annual Interest Rate (APR %)' : 'వార్షిక వడ్డీ రేటు (APR %)'}
+                        <Tooltip text={language === 'en' ? 'The yearly interest rate charged by your credit card company. This can be very high, often between 30-48%.' : 'మీ క్రెడిట్ కార్డ్ కంపెనీ వసూలు చేసే వార్షిక వడ్డీ రేటు. ఇది చాలా ఎక్కువగా ఉంటుంది, తరచుగా 30-48% మధ్య ఉంటుంది.'} />
+                    </label>
                     <input id="apr" type="number" value={apr} onChange={e => setApr(Number(e.target.value))} className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                 </div>
                  <div>
-                    <label htmlFor="minPaymentPercent" className="block text-sm font-medium mb-2">{language === 'en' ? 'Minimum Payment (%)' : 'కనీస చెల్లింపు (%)'}</label>
+                    <label htmlFor="minPaymentPercent" className="flex items-center text-sm font-medium mb-2">
+                        {language === 'en' ? 'Minimum Payment (%)' : 'కనీస చెల్లింపు (%)'}
+                        <Tooltip text={language === 'en' ? 'The percentage of the outstanding balance your card issuer requires you to pay each month. Typically 5%.' : 'ప్రతి నెలా మీరు చెల్లించాల్సిన బాకీ ఉన్న బ్యాలెన్స్‌లో మీ కార్డ్ జారీచేసేవారు అవసరమైన శాతం. సాధారణంగా 5%.'} />
+                    </label>
                     <input id="minPaymentPercent" type="number" value={minPaymentPercent} onChange={e => setMinPaymentPercent(Number(e.target.value))} className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                 </div>
             </div>
@@ -123,7 +133,7 @@ const CreditCardInterestCalculator: React.FC<CalculatorProps> = ({ initialState,
                  <div className="bg-white dark:bg-dark p-4 sm:p-6 rounded-lg shadow-inner border border-gray-200 dark:border-gray-700">
                      <h3 className="text-xl font-bold text-primary dark:text-blue-300 mb-4 text-center">{language === 'en' ? 'Payment Breakdown' : 'చెల్లింపు విచ్ఛిన్నం'}</h3>
                      <div className="h-64 mx-auto" style={{maxWidth: '400px'}} role="img" aria-label={language === 'en' ? 'Pie chart showing breakdown of principal vs total interest.' : 'అసలు మరియు మొత్తం వడ్డీ యొక్క విచ్ఛిన్నం చూపే పై చార్ట్.'}>
-                        <Pie data={pieChartData} options={chartOptions} />
+                        <Pie data={pieChartData} options={chartOptions as any} />
                      </div>
                 </div>
             </div>

@@ -82,7 +82,7 @@ const EducationLoanRepaymentCalculator: React.FC<CalculatorProps> = ({ initialSt
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
+                position: (isMd ? 'right' : 'top') as ('top' | 'right' | 'left' | 'bottom' | 'chartArea'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             }
         }
@@ -129,7 +129,7 @@ const EducationLoanRepaymentCalculator: React.FC<CalculatorProps> = ({ initialSt
                 <div className="bg-white dark:bg-dark p-4 sm:p-6 rounded-lg shadow-inner border border-gray-200 dark:border-gray-700">
                      <h3 className="text-xl font-bold text-primary dark:text-blue-300 mb-4 text-center">{language === 'en' ? 'Loan Breakdown' : 'లోన్ విచ్ఛిన్నం'}</h3>
                      <div className="h-64 mx-auto" style={{maxWidth: '400px'}} role="img">
-                        <Pie data={pieChartData} options={chartOptions} />
+                        <Pie data={pieChartData} options={chartOptions as any} />
                      </div>
                 </div>
             </div>

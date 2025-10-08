@@ -76,7 +76,7 @@ const CapitalGainsCalculator: React.FC = () => {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
+                position: (isMd ? 'right' : 'top') as ('top' | 'right' | 'left' | 'bottom' | 'chartArea'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             }
         }
@@ -149,7 +149,7 @@ const CapitalGainsCalculator: React.FC = () => {
                             {language === 'en' ? 'Gain Breakdown' : 'లాభం విచ్ఛిన్నం'}
                         </h3>
                         <div className="h-64 mx-auto" style={{maxWidth: '400px'}} role="img" aria-label={language === 'en' ? 'Pie chart showing the breakdown of post-tax gain versus estimated tax.' : 'పన్ను తర్వాత లాభం మరియు అంచనా పన్ను యొక్క విచ్ఛిన్నం చూపే పై చార్ట్.'}>
-                            <Pie data={pieChartData} options={chartOptions} />
+                            <Pie data={pieChartData} options={chartOptions as any} />
                         </div>
                     </div>
                 )}

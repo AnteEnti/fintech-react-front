@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import Tooltip from '../Tooltip';
 
 interface CalculatorProps {
     initialState?: Record<string, any>;
@@ -36,15 +37,24 @@ const BreakEvenPointCalculator: React.FC<CalculatorProps> = ({ initialState, onS
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
             <div className="lg:col-span-2 space-y-6">
                 <div>
-                    <label htmlFor="fixedCosts" className="block text-sm font-medium mb-2">{language === 'en' ? 'Total Fixed Costs' : 'మొత్తం స్థిర ఖర్చులు'}</label>
+                    <label htmlFor="fixedCosts" className="flex items-center text-sm font-medium mb-2">
+                        {language === 'en' ? 'Total Fixed Costs' : 'మొత్తం స్థిర ఖర్చులు'}
+                        <Tooltip text={language === 'en' ? 'Costs that do not change with the amount of goods produced (e.g., rent, salaries).' : 'ఉత్పత్తి చేసిన వస్తువుల మొత్తంతో మారని ఖర్చులు (ఉదా., అద్దె, జీతాలు).'} />
+                    </label>
                     <input id="fixedCosts" type="number" value={fixedCosts} onChange={e => setFixedCosts(Number(e.target.value))} className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                 </div>
                 <div>
-                    <label htmlFor="variableCost" className="block text-sm font-medium mb-2">{language === 'en' ? 'Variable Cost per Unit' : 'ఒక యూనిట్‌కు చర వ్యయం'}</label>
+                    <label htmlFor="variableCost" className="flex items-center text-sm font-medium mb-2">
+                        {language === 'en' ? 'Variable Cost per Unit' : 'ఒక యూనిట్‌కు చర వ్యయం'}
+                        <Tooltip text={language === 'en' ? 'The cost to produce one unit of your product (e.g., raw materials).' : 'మీ ఉత్పత్తి యొక్క ఒక యూనిట్‌ను ఉత్పత్తి చేయడానికి అయ్యే ఖర్చు (ఉదా., ముడి పదార్థాలు).'} />
+                    </label>
                     <input id="variableCost" type="number" value={variableCost} onChange={e => setVariableCost(Number(e.target.value))} className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                 </div>
                 <div>
-                    <label htmlFor="salePrice" className="block text-sm font-medium mb-2">{language === 'en' ? 'Sale Price per Unit' : 'ఒక యూనిట్‌కు అమ్మకం ధర'}</label>
+                    <label htmlFor="salePrice" className="flex items-center text-sm font-medium mb-2">
+                        {language === 'en' ? 'Sale Price per Unit' : 'ఒక యూనిట్‌కు అమ్మకం ధర'}
+                        <Tooltip text={language === 'en' ? 'The price at which you sell one unit of your product.' : 'మీరు మీ ఉత్పత్తి యొక్క ఒక యూనిట్‌ను అమ్మే ధర.'} />
+                    </label>
                     <input id="salePrice" type="number" value={salePrice} onChange={e => setSalePrice(Number(e.target.value))} className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                 </div>
             </div>

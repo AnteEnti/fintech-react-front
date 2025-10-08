@@ -177,7 +177,7 @@ const SIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange 
                 <div className="bg-white dark:bg-dark p-4 sm:p-6 rounded-lg shadow-inner border border-gray-200 dark:border-gray-700">
                     <h3 className="text-xl font-bold text-primary dark:text-blue-300 mb-4 text-center">{language === 'en' ? 'Investment Growth Over Time' : 'కాలక్రమేణా పెట్టుబడి వృద్ధి'}</h3>
                     <div className="h-64 md:h-80" role="img" aria-label={language === 'en' ? 'Line chart showing investment growth over the selected time period.' : 'ఎంచుకున్న కాల వ్యవధిలో పెట్టుబడి వృద్ధిని చూపే లైన్ చార్ట్.'}>
-                        <Line data={calculationResults.chartData} options={chartOptions} />
+                        <Line data={calculationResults.chartData} options={chartOptions as any} />
                     </div>
                 </div>
             </div>

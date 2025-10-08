@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import Tooltip from '../Tooltip';
 
 interface CalculatorProps {
     initialState?: Record<string, any>;
@@ -47,7 +48,10 @@ const TDSCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange 
             {/* Input Section */}
             <div className="lg:col-span-2 space-y-6">
                 <div>
-                    <label htmlFor="interestIncome" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{language === 'en' ? 'Total Annual Interest from FDs' : 'FDల నుండి మొత్తం వార్షిక వడ్డీ'}</label>
+                    <label htmlFor="interestIncome" className="flex items-center text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        {language === 'en' ? 'Total Annual Interest from FDs' : 'FDల నుండి మొత్తం వార్షిక వడ్డీ'}
+                        <Tooltip text={language === 'en' ? 'Sum of interest you expect to earn from all your Fixed Deposits in one financial year.' : 'ఒక ఆర్థిక సంవత్సరంలో మీ అన్ని ఫిక్స్‌డ్ డిపాజిట్ల నుండి మీరు సంపాదించాలని ఆశించే వడ్డీ మొత్తం.'} />
+                    </label>
                     <div className="relative">
                        <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 dark:text-gray-400">₹</span>
                        <input id="interestIncome" type="number" value={interestIncome} onChange={e => setInterestIncome(Number(e.target.value))} className="w-full p-3 pl-8 border rounded-lg bg-gray-50 dark:bg-slate-700"/>

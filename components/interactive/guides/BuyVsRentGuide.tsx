@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const BuyVsRentGuide: React.FC = () => {
     const { language } = useLanguage();
@@ -68,11 +69,29 @@ const BuyVsRentGuide: React.FC = () => {
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div><label htmlFor="monthlyRent" className="block text-sm font-medium mb-1">{language === 'en' ? 'Monthly Rent' : 'నెలవారీ అద్దె'}</label><input id="monthlyRent" value={rent} onChange={e => setRent(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="propertyPrice" className="block text-sm font-medium mb-1">{language === 'en' ? 'Property Price' : 'ఆస్తి ధర'}</label><input id="propertyPrice" value={price} onChange={e => setPrice(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="downPayment" className="block text-sm font-medium mb-1">{language === 'en' ? 'Down Payment' : 'డౌన్ పేమెంట్'}</label><input id="downPayment" value={downPayment} onChange={e => setDownPayment(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
+                        <div>
+                            <label htmlFor="propertyPrice" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Property Price' : 'ఆస్తి ధర'}
+                                <Tooltip text={language === 'en' ? 'The total on-road price of the property you are considering buying.' : 'మీరు కొనాలని పరిగణిస్తున్న ఆస్తి యొక్క మొత్తం ఆన్-రోడ్ ధర.'} />
+                            </label>
+                            <input id="propertyPrice" value={price} onChange={e => setPrice(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
+                        <div>
+                            <label htmlFor="downPayment" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Down Payment' : 'డౌన్ పేమెంట్'}
+                                <Tooltip text={language === 'en' ? 'The initial lump sum amount you will pay from your own funds.' : 'మీరు మీ స్వంత నిధుల నుండి చెల్లించే ప్రారంభ ఏకమొత్తం.'} />
+                            </label>
+                            <input id="downPayment" value={downPayment} onChange={e => setDownPayment(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
                         <div><label htmlFor="loanRate" className="block text-sm font-medium mb-1">{language === 'en' ? 'Loan Rate (%)' : 'లోన్ రేటు (%)'}</label><input id="loanRate" value={rate} onChange={e => setRate(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
                         <div><label htmlFor="loanTenure" className="block text-sm font-medium mb-1">{language === 'en' ? 'Loan Tenure (Yrs)' : 'లోన్ కాలపరిమితి (సం)'}</label><input id="loanTenure" value={tenure} onChange={e => setTenure(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="appreciation" className="block text-sm font-medium mb-1">{language === 'en' ? 'Appreciation (% p.a.)' : 'అప్రిషియేషన్ (% p.a.)'}</label><input id="appreciation" value={appreciation} onChange={e => setAppreciation(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
+                        <div>
+                            <label htmlFor="appreciation" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Appreciation (% p.a.)' : 'అప్రిషియేషన్ (% p.a.)'}
+                                <Tooltip text={language === 'en' ? "The estimated annual increase in the property's value." : 'ఆస్తి విలువలో అంచనా వేసిన వార్షిక పెరుగుదల.'} />
+                            </label>
+                            <input id="appreciation" value={appreciation} onChange={e => setAppreciation(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
                     </div>
                     <div className="mt-6 border-t pt-6">
                         <h3 className="text-xl font-semibold mb-4 text-center">{language === 'en' ? '5-Year Cost Comparison' : '5-సంవత్సరాల ఖర్చు పోలిక'}</h3>

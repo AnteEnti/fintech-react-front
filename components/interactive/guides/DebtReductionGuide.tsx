@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 interface Debt {
     id: number;
@@ -128,16 +129,25 @@ const DebtReductionGuide: React.FC = () => {
                                 <input id={`debt-name-${debt.id}`} value={debt.name} onChange={e => handleDebtChange(debt.id, 'name', e.target.value)} className="p-2 border rounded-lg bg-gray-50 dark:bg-slate-700 w-full"/>
                             </div>
                             <div className="md:col-span-2">
-                                <label htmlFor={`debt-amount-${debt.id}`} className="text-xs font-medium">{language === 'en' ? 'Amount' : 'మొత్తం'}</label>
+                                <label htmlFor={`debt-amount-${debt.id}`} className="flex items-center text-xs font-medium">
+                                    {language === 'en' ? 'Amount' : 'మొత్తం'}
+                                    <Tooltip text={language === 'en' ? 'The current outstanding principal amount of the debt.' : 'అప్పు యొక్క ప్రస్తుత బాకీ ఉన్న అసలు మొత్తం.'} />
+                                </label>
                                 <input id={`debt-amount-${debt.id}`} value={debt.amount} onChange={e => handleDebtChange(debt.id, 'amount', e.target.value)} type="number" className="p-2 border rounded-lg bg-gray-50 dark:bg-slate-700 w-full"/>
                             </div>
                             <div className="md:col-span-2">
-                                <label htmlFor={`debt-rate-${debt.id}`} className="text-xs font-medium">{language === 'en' ? 'Rate (%)' : 'రేటు (%)'}</label>
+                                <label htmlFor={`debt-rate-${debt.id}`} className="flex items-center text-xs font-medium">
+                                    {language === 'en' ? 'Rate (%)' : 'రేటు (%)'}
+                                    <Tooltip text={language === 'en' ? 'The annual interest rate for this debt.' : 'ఈ అప్పు కోసం వార్షిక వడ్డీ రేటు.'} />
+                                </label>
                                 <input id={`debt-rate-${debt.id}`} value={debt.rate} onChange={e => handleDebtChange(debt.id, 'rate', e.target.value)} type="number" className="p-2 border rounded-lg bg-gray-50 dark:bg-slate-700 w-full"/>
                             </div>
                             <div className="flex items-center md:col-span-3">
                                 <div className="flex-grow">
-                                  <label htmlFor={`debt-minpay-${debt.id}`} className="text-xs font-medium">{language === 'en' ? 'Min. Payment' : 'కనీస చెల్లింపు'}</label>
+                                  <label htmlFor={`debt-minpay-${debt.id}`} className="flex items-center text-xs font-medium">
+                                    {language === 'en' ? 'Min. Payment' : 'కనీస చెల్లింపు'}
+                                    <Tooltip text={language === 'en' ? 'The minimum monthly payment required for this debt.' : 'ఈ అప్పు కోసం అవసరమైన కనీస నెలవారీ చెల్లింపు.'} />
+                                  </label>
                                   <input id={`debt-minpay-${debt.id}`} value={debt.minPayment} onChange={e => handleDebtChange(debt.id, 'minPayment', e.target.value)} type="number" className="p-2 border rounded-lg bg-gray-50 dark:bg-slate-700 w-full"/>
                                 </div>
                                 <button onClick={() => removeDebt(debt.id)} disabled={debts.length <= 1} className="ml-2 p-1 text-red-500 hover:text-red-700 disabled:opacity-50">&times;</button>
@@ -147,7 +157,10 @@ const DebtReductionGuide: React.FC = () => {
                     <button onClick={addDebt} className="text-sm text-primary dark:text-blue-300">+ {language === 'en' ? 'Add Debt' : 'అప్పును జోడించు'}</button>
 
                     <div className="mt-4">
-                        <label htmlFor="extraPayment" className="block text-sm font-medium mb-1">{language === 'en' ? 'Extra Monthly Payment' : 'అదనపు నెలవారీ చెల్లింపు'}</label>
+                        <label htmlFor="extraPayment" className="flex items-center text-sm font-medium mb-1">
+                            {language === 'en' ? 'Extra Monthly Payment' : 'అదనపు నెలవారీ చెల్లింపు'}
+                            <Tooltip text={language === 'en' ? 'The extra amount you can afford to pay towards your debts each month, over and above the minimum payments.' : 'కనీస చెల్లింపులకు అదనంగా, ప్రతి నెలా మీ అప్పుల కోసం మీరు చెల్లించగల అదనపు మొత్తం.'} />
+                        </label>
                         <input id="extraPayment" value={extraPayment} onChange={e => setExtraPayment(e.target.value)} type="number" className="p-2 border rounded-lg bg-gray-50 dark:bg-slate-700 w-full max-w-xs"/>
                     </div>
 

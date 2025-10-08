@@ -6,8 +6,8 @@ import Sidebar from '../components/Sidebar';
 import Breadcrumbs from '../components/Breadcrumbs';
 import RelatedLinks from '../components/RelatedLinks';
 import { SITEMAP_DATA } from '../constants';
-import BookmarkButton from '../components/BookmarkButton';
 import LoadingSpinner from '../components/LoadingSpinner';
+
 
 interface ContentPageProps {
   pageData: PageData;
@@ -92,9 +92,8 @@ const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
                 throw new Error('Content not found for this topic.');
             }
             
-            const finalContent = language === 'te' ? post.telugucontent : post.englishcontent;
-
-            setContent(finalContent);
+            const htmlContent = language === 'te' ? post.telugucontent : post.englishcontent;
+            setContent(htmlContent || '');
 
         } catch (e: any) {
             setError(language === 'en' ? `Failed to load content: ${e.message}` : `కంటెంట్ లోడ్ చేయడంలో విఫలమైంది: ${e.message}`);
@@ -106,45 +105,22 @@ const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
     fetchContent();
   }, [pageData.path, language]);
 
-  const renderArticleContent = () => {
-    if (isLoading) {
-      return <LoadingSpinner />;
-    }
-    if (error) {
-      return <p className="text-red-500 text-center py-8">{error}</p>;
-    }
-    if (content) {
-      return (
-        <div
-          className="prose max-w-none text-gray-700 dark:text-gray-300
-                     prose-h1:text-primary dark:prose-h1:text-blue-300
-                     prose-h2:text-secondary dark:prose-h2:text-blue-400
-                     prose-a:text-accent hover:prose-a:text-orange-700
-                     dark:prose-a:text-orange-400 dark:hover:prose-a:text-orange-300
-                     dark:prose-strong:text-gray-200
-                     dark:prose-blockquote:border-gray-600 dark:prose-blockquote:text-gray-400"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      );
-    }
-    return null;
-  };
-
   return (
-    <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+    <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 max-w-7xl mx-auto">
       <Sidebar title={sidebarTitle} categories={sidebarCategories} currentPath={location.pathname} />
-      <div className="flex-grow">
+      <div className="flex-grow min-w-0">
         <Breadcrumbs pageData={pageData} />
-        <article className="bg-white dark:bg-dark p-6 sm:p-8 rounded-lg shadow-lg min-h-[400px]">
-          <div className="flex justify-between items-start mb-4">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-primary dark:text-blue-300">{pageData.title[language]}</h1>
-            <BookmarkButton pagePath={pageData.path} />
-          </div>
-          
-          {renderArticleContent()}
-
-          <RelatedLinks links={pageData.interlinks} />
-        </article>
+        <div className="bg-white dark:bg-dark p-6 sm:p-8 rounded-lg shadow-xl mt-4 min-h-[400px]">
+          {isLoading && <LoadingSpinner />}
+          {error && <p className="text-red-500 text-center py-8">{error}</p>}
+          {content && (
+              <article
+                  className="prose dark:prose-invert lg:prose-lg"
+                  dangerouslySetInnerHTML={{ __html: content }}
+              />
+          )}
+        </div>
+        <RelatedLinks links={pageData.interlinks} />
       </div>
     </div>
   );

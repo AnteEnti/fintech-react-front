@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const HomeLoanPrepaymentGuide: React.FC = () => {
     const { language } = useLanguage();
@@ -80,7 +81,10 @@ const HomeLoanPrepaymentGuide: React.FC = () => {
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                            <label htmlFor="loanAmount" className="block text-sm font-medium mb-1">{language==='en'?'Outstanding Loan':'బాకీ ఉన్న లోన్'}</label>
+                            <label htmlFor="loanAmount" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Outstanding Loan':'బాకీ ఉన్న లోన్'}
+                                <Tooltip text={language === 'en' ? 'The current principal amount remaining on your home loan.' : 'మీ గృహ రుణంపై మిగిలి ఉన్న ప్రస్తుత అసలు మొత్తం.'} />
+                            </label>
                             <input id="loanAmount" value={loan.amount} onChange={e => handleLoanChange('amount', e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                         <div>
@@ -88,17 +92,26 @@ const HomeLoanPrepaymentGuide: React.FC = () => {
                             <input id="loanRate" value={loan.rate} onChange={e => handleLoanChange('rate', e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                         <div>
-                            <label htmlFor="loanTenure" className="block text-sm font-medium mb-1">{language==='en'?'Remaining Tenure (Yrs)':'మిగిలిన కాలపరిమితి (సం)'}</label>
+                            <label htmlFor="loanTenure" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Remaining Tenure (Yrs)':'మిగిలిన కాలపరిమితి (సం)'}
+                                <Tooltip text={language === 'en' ? 'The number of years left to repay your loan.' : 'మీ రుణాన్ని తిరిగి చెల్లించడానికి మిగిలి ఉన్న సంవత్సరాల సంఖ్య.'} />
+                            </label>
                             <input id="loanTenure" value={loan.tenure} onChange={e => handleLoanChange('tenure', e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label htmlFor="prepaymentAmount" className="block text-sm font-medium mb-1">{language==='en'?'Prepayment Amount':'ప్రీపేమెంట్ మొత్తం'}</label>
+                            <label htmlFor="prepaymentAmount" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Prepayment Amount':'ప్రీపేమెంట్ మొత్తం'}
+                                <Tooltip text={language === 'en' ? 'The one-time lump sum amount you wish to pay now.' : 'మీరు ఇప్పుడు చెల్లించాలనుకుంటున్న ఒకేసారి ఏకమొత్తం.'} />
+                            </label>
                             <input id="prepaymentAmount" value={lumpSum} onChange={e => setLumpSum(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                         <div>
-                            <label htmlFor="investmentReturn" className="block text-sm font-medium mb-1">{language==='en'?'Expected Investment Return (%)':'అంచనా రాబడి (%)'}</label>
+                            <label htmlFor="investmentReturn" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Expected Investment Return (%)':'అంచనా రాబడి (%)'}
+                                <Tooltip text={language === 'en' ? 'The annual return you expect if you invest the lump sum amount elsewhere (e.g., in mutual funds).' : 'మీరు ఏకమొత్తాన్ని మరెక్కడైనా (ఉదా., మ్యూచువల్ ఫండ్స్‌లో) పెట్టుబడి పెడితే మీరు ఆశించే వార్షిక రాబడి.'} />
+                            </label>
                             <input id="investmentReturn" value={investmentReturn} onChange={e => setInvestmentReturn(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                     </div>

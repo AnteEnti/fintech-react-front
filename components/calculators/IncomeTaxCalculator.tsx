@@ -98,7 +98,7 @@ const IncomeTaxCalculator: React.FC<CalculatorProps> = ({ initialState, onStateC
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
+                position: (isMd ? 'right' : 'top') as ('top' | 'right' | 'left' | 'bottom' | 'chartArea'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             }
         }
@@ -152,7 +152,7 @@ const IncomeTaxCalculator: React.FC<CalculatorProps> = ({ initialState, onStateC
                      <div className="bg-white dark:bg-dark p-4 sm:p-6 rounded-lg shadow-inner border border-gray-200 dark:border-gray-700">
                         <h3 className="text-xl font-bold text-primary dark:text-blue-300 mb-4 text-center">{language === 'en' ? 'Income Breakdown' : 'ఆదాయ విచ్ఛిన్నం'}</h3>
                         <div className="h-64 mx-auto" style={{maxWidth: '400px'}} role="img" aria-label={language === 'en' ? 'Pie chart showing the breakdown of post-tax income versus total tax payable.' : 'పన్ను తర్వాత ఆదాయం మరియు చెల్లించవలసిన మొత్తం పన్ను యొక్క విచ్ఛిన్నం చూపే పై చార్ట్.'}>
-                            <Pie data={pieChartData} options={chartOptions} />
+                            <Pie data={pieChartData} options={chartOptions as any} />
                         </div>
                     </div>
                 )}

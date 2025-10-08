@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const FinancialHealthCheckupGuide: React.FC = () => {
     const { language } = useLanguage();
@@ -95,19 +96,31 @@ const FinancialHealthCheckupGuide: React.FC = () => {
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label htmlFor="monthlyIncome" className="block text-sm font-medium mb-1">{language === 'en' ? 'Monthly Income (Post-Tax)' : 'నెలసరి ఆదాయం (పన్ను తర్వాత)'}</label>
+                            <label htmlFor="monthlyIncome" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Monthly Income (Post-Tax)' : 'నెలసరి ఆదాయం (పన్ను తర్వాత)'}
+                                <Tooltip text={language === 'en' ? 'Your take-home salary.' : 'మీ ఇంటికి తీసుకువెళ్ళే జీతం.'} />
+                            </label>
                             <input id="monthlyIncome" type="number" value={income} onChange={e => setIncome(e.target.value)} className="w-full p-2 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                         </div>
                         <div>
-                            <label htmlFor="monthlyExpenses" className="block text-sm font-medium mb-1">{language === 'en' ? 'Monthly Expenses' : 'నెలసరి ఖర్చులు'}</label>
+                            <label htmlFor="monthlyExpenses" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Monthly Expenses' : 'నెలసరి ఖర్చులు'}
+                                <Tooltip text={language === 'en' ? 'All your regular monthly spending.' : 'మీ అన్ని సాధారణ నెలవారీ ఖర్చులు.'} />
+                            </label>
                             <input id="monthlyExpenses" type="number" value={expenses} onChange={e => setExpenses(e.target.value)} className="w-full p-2 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                         </div>
                         <div>
-                            <label htmlFor="totalSavings" className="block text-sm font-medium mb-1">{language === 'en' ? 'Total Liquid Savings (Emergency Fund)' : 'మొత్తం లిక్విడ్ పొదుపు (అత్యవసర నిధి)'}</label>
+                            <label htmlFor="totalSavings" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Total Liquid Savings (Emergency Fund)' : 'మొత్తం లిక్విడ్ పొదుపు (అత్యవసర నిధి)'}
+                                <Tooltip text={language === 'en' ? 'Money in easily accessible accounts like savings or liquid funds, set aside for emergencies.' : 'పొదుపు లేదా లిక్విడ్ ఫండ్స్ వంటి సులభంగా అందుబాటులో ఉండే ఖాతాలలో డబ్బు, అత్యవసరాల కోసం కేటాయించబడింది.'} />
+                            </label>
                             <input id="totalSavings" type="number" value={savings} onChange={e => setSavings(e.target.value)} className="w-full p-2 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                         </div>
                         <div>
-                            <label htmlFor="totalDebt" className="block text-sm font-medium mb-1">{language === 'en' ? 'Total Debt (excluding Home Loan)' : 'మొత్తం అప్పు (గృహ రుణం మినహా)'}</label>
+                            <label htmlFor="totalDebt" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Total Debt (excluding Home Loan)' : 'మొత్తం అప్పు (గృహ రుణం మినహా)'}
+                                <Tooltip text={language === 'en' ? "Sum of all your loans like personal loans, credit card debt, etc. Exclude home loan as it's a long-term asset-building loan." : 'వ్యక్తిగత రుణాలు, క్రెడిట్ కార్డ్ అప్పు మొదలైన మీ అన్ని రుణాల మొత్తం. గృహ రుణాన్ని మినహాయించండి, ఎందుకంటే ఇది దీర్ఘకాలిక ఆస్తి-నిర్మాణ రుణం.'} />
+                            </label>
                             <input id="totalDebt" type="number" value={debt} onChange={e => setDebt(e.target.value)} className="w-full p-2 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                         </div>
                     </div>

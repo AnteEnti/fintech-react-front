@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const Personalized80cGuide: React.FC = () => {
     const { language } = useLanguage();
@@ -63,7 +64,10 @@ const Personalized80cGuide: React.FC = () => {
                 </h3>
                 <div className="space-y-6">
                     <div>
-                        <label htmlFor="epfContribution" className="block text-sm font-medium mb-1">{language==='en'?'Your Annual EPF Contribution':'మీ వార్షిక EPF కంట్రిబ్యూషన్'}</label>
+                        <label htmlFor="epfContribution" className="flex items-center text-sm font-medium mb-1">
+                            {language==='en'?'Your Annual EPF Contribution':'మీ వార్షిక EPF కంట్రిబ్యూషన్'}
+                            <Tooltip text={language === 'en' ? "Your and your employer's contribution to the Employee Provident Fund is part of the 80C limit." : "ఉద్యోగి భవిష్య నిధికి మీ మరియు మీ యజమాని యొక్క సహకారం 80C పరిమితిలో భాగం."} />
+                        </label>
                         <input id="epfContribution" value={epf} onChange={e => setEpf(e.target.value)} type="number" className="w-full p-2 border rounded"/>
                     </div>
                     <p>{language==='en'?'Your remaining 80C limit is:':'మీ మిగిలిన 80C పరిమితి:'} <span className="font-bold">{remainingLimit.toLocaleString('en-IN')}</span></p>
@@ -71,7 +75,10 @@ const Personalized80cGuide: React.FC = () => {
                     {remainingLimit > 0 && (
                         <>
                         <div>
-                            <label htmlFor="riskTolerance" className="block text-sm font-medium mb-1">{language==='en'?'Your Risk Tolerance':'మీ రిస్క్ సహనం'}</label>
+                            <label htmlFor="riskTolerance" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Your Risk Tolerance':'మీ రిస్క్ సహనం'}
+                                <Tooltip text={language === 'en' ? 'How comfortable you are with investment risks. Low risk means you prefer safety (like FDs), high risk means you are okay with market fluctuations for higher potential returns (like stocks).' : 'పెట్టుబడి నష్టాలతో మీరు ఎంత సౌకర్యవంతంగా ఉన్నారు. తక్కువ ప్రమాదం అంటే మీరు భద్రతను ఇష్టపడతారు (FDల వంటివి), అధిక ప్రమాదం అంటే మీరు అధిక సంభావ్య రాబడి (స్టాక్స్ వంటివి) కోసం మార్కెట్ హెచ్చుతగ్గులతో సరే.'} />
+                            </label>
                             <select id="riskTolerance" value={risk} onChange={e => setRisk(e.target.value)} className="w-full p-2 border rounded">
                                 <option value="">{language==='en'?'Select...':'ఎంచుకోండి...'}</option>
                                 <option value="low">{language==='en'?'Low':'తక్కువ'}</option>

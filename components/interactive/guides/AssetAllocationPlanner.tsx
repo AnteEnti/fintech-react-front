@@ -56,7 +56,8 @@ const AssetAllocationPlanner: React.FC = () => {
             { q: { en: 'Reaction to a 20% market drop?', te: '20% మార్కెట్ పతనానికి ప్రతిచర్య?'}, a: [{en: 'Sell all', te: 'అన్నీ అమ్మేయాలి', s: 1}, {en: 'Wait', te: 'వేచి ఉండాలి', s: 2}, {en: 'Buy more', te: 'మరిన్ని కొనాలి', s: 3}] },
             { q: { en: 'Primary goal?', te: 'ప్రధాన లక్ష్యం?'}, a: [{en: 'Capital safety', te: 'మూలధన భద్రత', s: 1}, {en: 'Mix of growth & safety', te: 'వృద్ధి & భద్రత మిశ్రమం', s: 2}, {en: 'High growth', te: 'అధిక వృద్ధి', s: 3}] },
         ];
-        const totalScore = Object.values(answers).reduce((sum, s) => sum + s, 0);
+        // FIX: Explicitly typed the arguments of the reduce function to ensure `totalScore` is a number, fixing the type mismatch for the `onSubmit` callback.
+        const totalScore = Object.values(answers).reduce((sum: number, s: number) => sum + s, 0);
 
         return (
             <div>
@@ -100,7 +101,7 @@ const AssetAllocationPlanner: React.FC = () => {
             case 3: return (
                 <div className="text-center">
                     <h3 className="text-xl font-semibold mb-4">{language === 'en' ? 'Your Recommended Asset Allocation' : 'మీకు సిఫార్సు చేయబడిన ఆస్తి కేటాయింపు'}</h3>
-                    <div className="h-64 mx-auto" style={{maxWidth: '300px'}}><Doughnut data={chartData} options={chartOptions} /></div>
+                    <div className="h-64 mx-auto" style={{maxWidth: '300px'}}><Doughnut data={chartData} options={chartOptions as any} /></div>
                     <button onClick={() => setStep(0)} className="mt-6 text-sm text-primary dark:text-blue-300 hover:underline">{language === 'en' ? 'Start Over' : 'మళ్ళీ ప్రారంభించండి'}</button>
                 </div>
             );

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const TaxRegimeSelectorGuide: React.FC = () => {
     const { language } = useLanguage();
@@ -12,7 +13,8 @@ const TaxRegimeSelectorGuide: React.FC = () => {
 
     const { oldTax, newTax } = useMemo(() => {
         const inc = Number(income) || 0;
-        const totalDeductions = Object.values(deductions).reduce((sum, val) => sum + (Number(val) || 0), 0) + 50000; // Standard Deduction for Old
+        // FIX: Explicitly typed the arguments of the reduce function to ensure its result is a number before performing addition.
+        const totalDeductions = Object.values(deductions).reduce((sum: number, val: string) => sum + (Number(val) || 0), 0) + 50000; // Standard Deduction for Old
 
         // Old Regime Calculation
         let taxableOld = Math.max(0, inc - totalDeductions);
@@ -80,19 +82,31 @@ const TaxRegimeSelectorGuide: React.FC = () => {
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label htmlFor="annualIncome" className="block text-sm font-medium mb-1">{language === 'en' ? 'Gross Annual Income' : 'స్థూల వార్షిక ఆదాయం'}</label>
+                            <label htmlFor="annualIncome" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Gross Annual Income' : 'స్థూల వార్షిక ఆదాయం'}
+                                <Tooltip text={language === 'en' ? 'Your total income before any deductions.' : 'ఏ తగ్గింపులకు ముందు మీ మొత్తం ఆదాయం.'} />
+                            </label>
                             <input id="annualIncome" value={income} onChange={e => setIncome(e.target.value)} type="number" className="w-full p-2 border rounded"/>
                         </div>
                         <div>
-                            <label htmlFor="deductions80c" className="block text-sm font-medium mb-1">{language === 'en' ? '80C Deductions' : '80C తగ్గింపులు'}</label>
+                            <label htmlFor="deductions80c" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? '80C Deductions' : '80C తగ్గింపులు'}
+                                <Tooltip text={language === 'en' ? 'Investments like PPF, ELSS, Life Insurance, etc., up to ₹1.5 Lakh.' : 'PPF, ELSS, జీవిత బీమా మొదలైన పెట్టుబడులు, ₹1.5 లక్షల వరకు.'} />
+                            </label>
                             <input id="deductions80c" value={deductions['80c']} onChange={e => handleDeductionChange('80c', e.target.value)} type="number" className="w-full p-2 border rounded"/>
                         </div>
                         <div>
-                            <label htmlFor="hraExemption" className="block text-sm font-medium mb-1">{language === 'en' ? 'HRA Exemption' : 'HRA మినహాయింపు'}</label>
+                            <label htmlFor="hraExemption" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'HRA Exemption' : 'HRA మినహాయింపు'}
+                                <Tooltip text={language === 'en' ? 'The part of your House Rent Allowance that is exempt from tax. Use our HRA Calculator if unsure.' : 'మీ ఇంటి అద్దె భత్యంలో పన్ను నుండి మినహాయింపు పొందిన భాగం. ఖచ్చితంగా తెలియకపోతే మా HRA కాలిక్యులేటర్ ఉపయోగించండి.'} />
+                            </label>
                             <input id="hraExemption" value={deductions.hra} onChange={e => handleDeductionChange('hra', e.target.value)} type="number" className="w-full p-2 border rounded"/>
                         </div>
                         <div>
-                            <label htmlFor="homeLoanInterest" className="block text-sm font-medium mb-1">{language === 'en' ? 'Home Loan Interest' : 'గృహ రుణం వడ్డీ'}</label>
+                            <label htmlFor="homeLoanInterest" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Home Loan Interest' : 'గృహ రుణం వడ్డీ'}
+                                <Tooltip text={language === 'en' ? 'Interest paid on your home loan, eligible for deduction up to ₹2 Lakh.' : 'మీ గృహ రుణంపై చెల్లించిన వడ్డీ, ₹2 లక్షల వరకు తగ్గింపుకు అర్హత.'} />
+                            </label>
                             <input id="homeLoanInterest" value={deductions.homeLoan} onChange={e => handleDeductionChange('homeLoan', e.target.value)} type="number" className="w-full p-2 border rounded"/>
                         </div>
                     </div>

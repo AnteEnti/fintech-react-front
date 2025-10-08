@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const PersonalLoanGuide: React.FC = () => {
     const { language } = useLanguage();
@@ -74,15 +75,24 @@ const PersonalLoanGuide: React.FC = () => {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="monthlyIncome" className="block text-sm font-medium mb-1">{language==='en'?'Monthly Income':'నెలవారీ ఆదాయం'}</label>
+                            <label htmlFor="monthlyIncome" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Monthly Income':'నెలవారీ ఆదాయం'}
+                                <Tooltip text={language === 'en' ? 'Your net take-home salary per month.' : 'నెలకు మీ నికర ఇంటికి తీసుకువెళ్ళే జీతం.'} />
+                            </label>
                             <input id="monthlyIncome" value={income} onChange={e => setIncome(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                         <div>
-                            <label htmlFor="currentEmi" className="block text-sm font-medium mb-1">{language==='en'?'Current EMIs':'ప్రస్తుత EMIలు'}</label>
+                            <label htmlFor="currentEmi" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Current EMIs':'ప్రస్తుత EMIలు'}
+                                <Tooltip text={language === 'en' ? 'Total of all existing EMIs you are paying for other loans.' : 'ఇతర రుణాల కోసం మీరు చెల్లిస్తున్న అన్ని ప్రస్తుత EMIల మొత్తం.'} />
+                            </label>
                             <input id="currentEmi" value={currentEmi} onChange={e => setCurrentEmi(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                         <div>
-                            <label htmlFor="newEmi" className="block text-sm font-medium mb-1">{language==='en'?'New Loan EMI':'కొత్త లోన్ EMI'}</label>
+                            <label htmlFor="newEmi" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'New Loan EMI':'కొత్త లోన్ EMI'}
+                                <Tooltip text={language === 'en' ? 'The estimated EMI for the new personal loan you are considering.' : 'మీరు పరిగణిస్తున్న కొత్త వ్యక్తిగత రుణం కోసం అంచనా వేసిన EMI.'} />
+                            </label>
                             <input id="newEmi" value={newEmi} onChange={e => setNewEmi(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                     </div>

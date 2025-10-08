@@ -50,21 +50,30 @@ const DividendYieldCalculator: React.FC<CalculatorProps> = ({ initialState, onSt
             {/* Input Section */}
             <div className="lg:col-span-2 space-y-6">
                 <div>
-                    <label htmlFor="annualDividend" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{language === 'en' ? 'Annual Dividend per Share' : 'ఒక షేరుకు వార్షిక డివిడెండ్'}</label>
+                    <label htmlFor="annualDividend" className="flex items-center text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        {language === 'en' ? 'Annual Dividend per Share' : 'ఒక షేరుకు వార్షిక డివిడెండ్'}
+                        <Tooltip text={language === 'en' ? 'The total dividend paid out by a company for one share of stock over a year.' : 'ఒక సంవత్సరంలో ఒక కంపెనీ ఒక షేరు కోసం చెల్లించిన మొత్తం డివిడెండ్.'} />
+                    </label>
                     <div className="relative">
                        <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 dark:text-gray-400">₹</span>
                        <input id="annualDividend" type="number" value={annualDividend} onChange={e => { setAnnualDividend(Number(e.target.value)); handleValidation('annualDividend', Number(e.target.value)) }} className={`w-full p-3 pl-8 border rounded-lg bg-gray-50 dark:bg-slate-700 ${errors.annualDividend ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}`}/>
                     </div>
                 </div>
                 <div>
-                    <label htmlFor="sharePrice" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{language === 'en' ? 'Current Share Price' : 'ప్రస్తుత షేరు ధర'}</label>
+                    <label htmlFor="sharePrice" className="flex items-center text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        {language === 'en' ? 'Current Share Price' : 'ప్రస్తుత షేరు ధర'}
+                        <Tooltip text={language === 'en' ? 'The current market price of a single share of the stock.' : 'స్టాక్ యొక్క ఒకే షేరు ప్రస్తుత మార్కెట్ ధర.'} />
+                    </label>
                     <div className="relative">
                        <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 dark:text-gray-400">₹</span>
                        <input id="sharePrice" type="number" value={sharePrice} onChange={e => { setSharePrice(Number(e.target.value)); handleValidation('sharePrice', Number(e.target.value)) }} className={`w-full p-3 pl-8 border rounded-lg bg-gray-50 dark:bg-slate-700 ${errors.sharePrice ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}`}/>
                     </div>
                 </div>
                 <div>
-                    <label htmlFor="numShares" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{language === 'en' ? 'Number of Shares Owned' : 'సొంతమైన షేర్ల సంఖ్య'}</label>
+                    <label htmlFor="numShares" className="flex items-center text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        {language === 'en' ? 'Number of Shares Owned' : 'సొంతమైన షేర్ల సంఖ్య'}
+                        <Tooltip text={language === 'en' ? 'The total number of shares of this stock that you own.' : 'మీరు సొంతం చేసుకున్న ఈ స్టాక్ యొక్క మొత్తం షేర్ల సంఖ్య.'} />
+                    </label>
                     <input id="numShares" type="number" value={numShares} onChange={e => { setNumShares(Number(e.target.value)); handleValidation('numShares', Number(e.target.value)) }} className={`w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700 ${errors.numShares ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}`}/>
                 </div>
             </div>

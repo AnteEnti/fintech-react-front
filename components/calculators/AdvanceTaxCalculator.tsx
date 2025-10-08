@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import Tooltip from '../Tooltip';
 
 interface CalculatorProps {
     initialState?: Record<string, any>;
@@ -53,11 +54,17 @@ const AdvanceTaxCalculator: React.FC<CalculatorProps> = ({ initialState, onState
             {/* Input Section */}
             <div className="lg:col-span-2 space-y-6">
                  <div>
-                    <label htmlFor="annualIncome" className="block text-sm font-medium mb-2">{language === 'en' ? 'Estimated Annual Income' : 'అంచనా వార్షిక ఆదాయం'}</label>
+                    <label htmlFor="annualIncome" className="flex items-center text-sm font-medium mb-2">
+                        {language === 'en' ? 'Estimated Annual Income' : 'అంచనా వార్షిక ఆదాయం'}
+                        <Tooltip text={language === 'en' ? 'Your total expected income from all sources for the financial year.' : 'ఆర్థిక సంవత్సరానికి అన్ని మూలాల నుండి మీ మొత్తం అంచనా ఆదాయం.'} />
+                    </label>
                     <input id="annualIncome" type="number" value={annualIncome} onChange={e => setAnnualIncome(Number(e.target.value))} className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                 </div>
                 <div>
-                    <label htmlFor="deductions" className="block text-sm font-medium mb-2">{language === 'en' ? 'Estimated Deductions (80C, etc.)' : 'అంచనా తగ్గింపులు (80C, మొదలైనవి)'}</label>
+                    <label htmlFor="deductions" className="flex items-center text-sm font-medium mb-2">
+                        {language === 'en' ? 'Estimated Deductions (80C, etc.)' : 'అంచనా తగ్గింపులు (80C, మొదలైనవి)'}
+                        <Tooltip text={language === 'en' ? 'Total deductions you plan to claim (e.g., under Section 80C, 80D, HRA) to reduce your taxable income.' : 'మీ పన్ను విధించదగిన ఆదాయాన్ని తగ్గించడానికి మీరు క్లెయిమ్ చేయాలని ప్లాన్ చేస్తున్న మొత్తం తగ్గింపులు (ఉదా., సెక్షన్ 80C, 80D, HRA కింద).'} />
+                    </label>
                     <input id="deductions" type="number" value={deductions} onChange={e => setDeductions(Number(e.target.value))} className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700"/>
                 </div>
             </div>

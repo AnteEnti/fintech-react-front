@@ -15,6 +15,7 @@ interface CostFields {
     misc: string;
 }
 
+// FIX: Replaced destructuring with default empty object for `initialState` with optional chaining to prevent TypeScript errors when properties are accessed.
 const VacationGoalCalculator: React.FC<CalculatorProps> = ({ initialState, onStateChange }) => {
     const { language } = useLanguage();
     
@@ -42,7 +43,7 @@ const VacationGoalCalculator: React.FC<CalculatorProps> = ({ initialState, onSta
         requiredMonthlySavings,
         progressPercentage
     } = useMemo(() => {
-        // FIX: Explicitly type the arguments of the reduce function to ensure the result is a number.
+        // FIX: Explicitly typed the arguments of the reduce function to ensure the result is a number.
         const total = Object.values(costs).reduce((sum: number, val: string) => sum + (Number(val) || 0), 0);
         const remaining = Math.max(0, total - currentSavings);
         
@@ -61,11 +62,17 @@ const VacationGoalCalculator: React.FC<CalculatorProps> = ({ initialState, onSta
     }, [costs, timelineMonths, currentSavings]);
 
     const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+        return new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        }).format(value);
     };
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+             {/* Input Section */}
             <div className="lg:col-span-3">
                 <h3 className="text-xl font-semibold mb-4">{language === 'en' ? 'Estimate Your Trip Cost' : 'మీ యాత్ర ఖర్చును అంచనా వేయండి'}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

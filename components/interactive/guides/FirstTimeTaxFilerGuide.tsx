@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
 
+// FIX: Define an interface for checklist items to ensure proper type inference.
+interface ChecklistItem {
+    text: { en: string; te: string };
+    checked: boolean;
+}
+
 const FirstTimeTaxFilerGuide: React.FC = () => {
     const { language } = useLanguage();
 
-    const initialItems = {
+    // FIX: Type the initialItems object to allow TypeScript to correctly infer the state type for `checklist`. This resolves property access errors on `item`.
+    const initialItems: Record<string, ChecklistItem> = {
         pan: { text: { en: 'Have your PAN Card ready.', te: 'మీ పాన్ కార్డు సిద్ధంగా ఉంచుకోండి.' }, checked: true },
         bank: { text: { en: 'Consolidate all your bank account statements.', te: 'మీ అన్ని బ్యాంకు ఖాతా స్టేట్‌మెంట్‌లను ఏకీకృతం చేయండి.' }, checked: false },
         form16: { text: { en: 'Get Form 16 from your employer.', te: 'మీ యజమాని నుండి ఫారం 16 పొందండి.' }, checked: false },

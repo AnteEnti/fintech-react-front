@@ -90,7 +90,7 @@ const GoldSIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateCha
         },
         plugins: {
             legend: {
-                position: (isMd ? 'right' : 'top') as ('top' | 'right'),
+                position: (isMd ? 'right' : 'top') as ('top' | 'right' | 'left' | 'bottom' | 'chartArea'),
                 labels: { color: theme === 'dark' ? '#e2e8f0' : '#374151' }
             }
         }
@@ -154,7 +154,7 @@ const GoldSIPCalculator: React.FC<CalculatorProps> = ({ initialState, onStateCha
                 <div className="bg-white dark:bg-dark p-4 sm:p-6 rounded-lg shadow-inner border border-gray-200 dark:border-gray-700">
                     <h3 className="text-xl font-bold text-amber-600 dark:text-amber-400 mb-4 text-center">{language === 'en' ? 'Gold Value Growth' : 'బంగారం విలువ వృద్ధి'}</h3>
                     <div className="h-64 md:h-80" role="img" aria-label={language === 'en' ? 'Line chart showing gold investment growth over the selected time period.' : 'ఎంచుకున్న కాల వ్యవధిలో బంగారం పెట్టుబడి వృద్ధిని చూపే లైన్ చార్ట్.'}>
-                        <Line data={calculationResults.chartData} options={chartOptions} />
+                        <Line data={calculationResults.chartData} options={chartOptions as any} />
                     </div>
                 </div>
             </div>

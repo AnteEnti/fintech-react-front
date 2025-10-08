@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const ChildUniversityFundPlanner: React.FC = () => {
     const { language } = useLanguage();
@@ -59,12 +60,39 @@ const ChildUniversityFundPlanner: React.FC = () => {
                 </h3>
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div><label htmlFor="childAge" className="block text-sm font-medium mb-1">{language === 'en' ? "Child's Age" : 'పిల్లల వయస్సు'}</label><input id="childAge" value={childAge} onChange={e => setChildAge(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="goalAge" className="block text-sm font-medium mb-1">{language === 'en' ? 'Goal Age' : 'లక్ష్య వయస్సు'}</label><input id="goalAge" value={goalAge} onChange={e => setGoalAge(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="currentCost" className="block text-sm font-medium mb-1">{language === 'en' ? 'Current Cost' : 'ప్రస్తుత ఖర్చు'}</label><input id="currentCost" value={currentCost} onChange={e => setCurrentCost(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="inflation" className="block text-sm font-medium mb-1">{language === 'en' ? 'Inflation %' : 'ద్రవ్యోల్బణం %'}</label><input id="inflation" value={inflation} onChange={e => setInflation(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
+                        <div>
+                            <label htmlFor="childAge" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? "Child's Age" : 'పిల్లల వయస్సు'}
+                                <Tooltip text={language === 'en' ? "Your child's current age in years." : 'సంవత్సరాలలో మీ పిల్లల ప్రస్తుత వయస్సు.'} />
+                            </label>
+                            <input id="childAge" value={childAge} onChange={e => setChildAge(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
+                        <div>
+                            <label htmlFor="goalAge" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Goal Age' : 'లక్ష్య వయస్సు'}
+                                <Tooltip text={language === 'en' ? "The age at which your child will need the funds for higher education (e.g., 18)." : 'ఉన్నత విద్య కోసం మీ పిల్లలకు నిధులు అవసరమయ్యే వయస్సు (ఉదా., 18).'} />
+                            </label>
+                            <input id="goalAge" value={goalAge} onChange={e => setGoalAge(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
+                        <div>
+                            <label htmlFor="currentCost" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Current Cost' : 'ప్రస్తుత ఖర్చు'}
+                                <Tooltip text={language === 'en' ? "The estimated cost of the desired university course if your child were to start today." : 'మీ పిల్లవాడు ఈరోజు ప్రారంభించినట్లయితే కావలసిన విశ్వవిద్యాలయ కోర్సు యొక్క అంచనా వ్యయం.'} />
+                            </label>
+                            <input id="currentCost" value={currentCost} onChange={e => setCurrentCost(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
+                        <div>
+                            <label htmlFor="inflation" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Inflation %' : 'ద్రవ్యోల్బణం %'}
+                                <Tooltip text={language === 'en' ? 'The expected annual increase in education costs. This is typically higher than general inflation.' : 'విద్యా ఖర్చులలో అంచనా వేసిన వార్షిక పెరుగుదల. ఇది సాధారణంగా సాధారణ ద్రవ్యోల్బణం కంటే ఎక్కువగా ఉంటుంది.'} />
+                            </label>
+                            <input id="inflation" value={inflation} onChange={e => setInflation(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
                         <div className="md:col-span-2">
-                            <label htmlFor="expectedReturn" className="block text-sm font-medium mb-1">{language === 'en' ? 'Expected Return %' : 'రాబడి %'}</label>
+                            <label htmlFor="expectedReturn" className="flex items-center text-sm font-medium mb-1">
+                                {language === 'en' ? 'Expected Return %' : 'రాబడి %'}
+                                <Tooltip text={language === 'en' ? 'The average annual return you expect from your investments.' : 'మీ పెట్టుబడుల నుండి మీరు ఆశించే సగటు వార్షిక రాబడి.'} />
+                            </label>
                             <input id="expectedReturn" value={expectedReturn} onChange={e => setExpectedReturn(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                     </div>

@@ -113,17 +113,21 @@ const LearnPage: React.FC = () => {
         if (error) {
             return <p className="text-red-500 text-center py-8">{error}</p>;
         }
+        
+        const categoriesWithPosts = categories.filter(
+            category => category.posts && category.posts.nodes && category.posts.nodes.length > 0
+        );
 
-        if (categories.length === 0) {
+        if (categoriesWithPosts.length === 0) {
             return (
                 <div className="text-center py-10">
-                    <p className="text-gray-500">{language === 'en' ? 'No categories found under "Learn".' : '"Learn" కింద వర్గాలు ఏవీ కనుగొనబడలేదు.'}</p>
-                    <p className="text-sm text-gray-400 mt-2">{language === 'en' ? 'Add child categories to the "Learn" parent category in WordPress to see them here.' : 'ఇక్కడ వాటిని చూడటానికి WordPressలో "Learn" పేరెంట్ వర్గానికి చైల్డ్ వర్గాలను జోడించండి.'}</p>
+                    <p className="text-gray-500">{language === 'en' ? 'No articles found.' : 'కథనాలు ఏవీ కనుగొనబడలేదు.'}</p>
+                    <p className="text-sm text-gray-400 mt-2">{language === 'en' ? 'Add posts to child categories under "Learn" in WordPress to see them here.' : 'WordPress లో "Learn" క్రింద ఉన్న చైల్డ్ కేటగిరీలకు పోస్ట్‌లను జోడించండి.'}</p>
                 </div>
             );
         }
 
-        return categories.map(category => {
+        return categoriesWithPosts.map(category => {
             const categoryName = category.name;
 
             return (

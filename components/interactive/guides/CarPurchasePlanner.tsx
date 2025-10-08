@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const CarPurchasePlanner: React.FC = () => {
     const { language } = useLanguage();
@@ -67,15 +68,24 @@ const CarPurchasePlanner: React.FC = () => {
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                            <label htmlFor="carPrice" className="block text-sm font-medium mb-1">{language==='en'?'Car On-Road Price':'కారు ఆన్-రోడ్ ధర'}</label>
+                            <label htmlFor="carPrice" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Car On-Road Price':'కారు ఆన్-రోడ్ ధర'}
+                                <Tooltip text={language === 'en' ? 'The final price of the car including registration, insurance, and all other charges.' : 'రిజిస్ట్రేషన్, బీమా మరియు అన్ని ఇతర ఛార్జీలతో సహా కారు యొక్క తుది ధర.'} />
+                            </label>
                             <input id="carPrice" value={price} onChange={e => setPrice(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                         <div>
-                            <label htmlFor="loanRate" className="block text-sm font-medium mb-1">{language==='en'?'Loan Rate %':'లోన్ రేటు %'}</label>
+                            <label htmlFor="loanRate" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Loan Rate %':'లోన్ రేటు %'}
+                                <Tooltip text={language === 'en' ? 'The annual interest rate for the car loan.' : 'కారు లోన్ కోసం వార్షిక వడ్డీ రేటు.'} />
+                            </label>
                             <input id="loanRate" value={rate} onChange={e => setRate(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                         <div>
-                            <label htmlFor="loanTenure" className="block text-sm font-medium mb-1">{language==='en'?'Loan Tenure (Yrs)':'లోన్ కాలపరిమితి (సం)'}</label>
+                            <label htmlFor="loanTenure" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Loan Tenure (Yrs)':'లోన్ కాలపరిమితి (సం)'}
+                                <Tooltip text={language === 'en' ? 'The duration of the car loan in years.' : 'సంవత్సరాలలో కారు లోన్ యొక్క వ్యవధి.'} />
+                            </label>
                             <input id="loanTenure" value={tenure} onChange={e => setTenure(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                     </div>

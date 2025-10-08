@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const EarlyRetirementSimulator: React.FC = () => {
     const { language } = useLanguage();
@@ -66,11 +67,32 @@ const EarlyRetirementSimulator: React.FC = () => {
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div><label htmlFor="currentAge" className="block text-sm font-medium mb-1">{language==='en'?'Current Age':'ప్రస్తుత వయస్సు'}</label><input id="currentAge" value={age} onChange={e => setAge(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="annualExpenses" className="block text-sm font-medium mb-1">{language==='en'?'Annual Expenses':'వార్షిక ఖర్చులు'}</label><input id="annualExpenses" value={expenses} onChange={e => setExpenses(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="existingCorpus" className="block text-sm font-medium mb-1">{language==='en'?'Existing Corpus':'ఇప్పటికే ఉన్న కార్పస్'}</label><input id="existingCorpus" value={corpus} onChange={e => setCorpus(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
-                        <div><label htmlFor="monthlySip" className="block text-sm font-medium mb-1">{language==='en'?'Monthly SIP':'నెలవారీ SIP'}</label><input id="monthlySip" value={sip} onChange={e => setSip(e.target.value)} type="number" className="p-2 border rounded w-full"/></div>
+                        <div>
+                            <label htmlFor="annualExpenses" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Annual Expenses':'వార్షిక ఖర్చులు'}
+                                <Tooltip text={language === 'en' ? 'Your total estimated expenses for one year in retirement.' : 'పదవీ విరమణలో ఒక సంవత్సరానికి మీ మొత్తం అంచనా ఖర్చులు.'} />
+                            </label>
+                            <input id="annualExpenses" value={expenses} onChange={e => setExpenses(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
+                        <div>
+                            <label htmlFor="existingCorpus" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Existing Corpus':'ఇప్పటికే ఉన్న కార్పస్'}
+                                <Tooltip text={language === 'en' ? 'The total value of all your current investments dedicated to retirement.' : 'పదవీ విరమణ కోసం కేటాయించిన మీ ప్రస్తుత అన్ని పెట్టుబడుల మొత్తం విలువ.'} />
+                            </label>
+                            <input id="existingCorpus" value={corpus} onChange={e => setCorpus(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
+                        <div>
+                            <label htmlFor="monthlySip" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Monthly SIP':'నెలవారీ SIP'}
+                                <Tooltip text={language === 'en' ? 'The total amount you are investing for retirement every month.' : 'ప్రతి నెలా పదవీ విరమణ కోసం మీరు పెట్టుబడి పెడుతున్న మొత్తం.'} />
+                            </label>
+                            <input id="monthlySip" value={sip} onChange={e => setSip(e.target.value)} type="number" className="p-2 border rounded w-full"/>
+                        </div>
                         <div className="md:col-span-2">
-                            <label htmlFor="expectedReturn" className="block text-sm font-medium mb-1">{language==='en'?'Expected Return %':'అంచనా రాబడి %'}</label>
+                            <label htmlFor="expectedReturn" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Expected Return %':'అంచనా రాబడి %'}
+                                <Tooltip text={language === 'en' ? 'The average annual return you expect from your investment portfolio.' : 'మీ పెట్టుబడి పోర్ట్‌ఫోలియో నుండి మీరు ఆశించే సగటు వార్షిక రాబడి.'} />
+                            </label>
                             <input id="expectedReturn" value={roi} onChange={e => setRoi(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                     </div>

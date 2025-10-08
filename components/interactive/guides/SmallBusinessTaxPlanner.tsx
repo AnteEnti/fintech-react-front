@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Tooltip from '../../Tooltip';
 
 const SmallBusinessTaxPlanner: React.FC = () => {
     const { language } = useLanguage();
@@ -71,11 +72,17 @@ const SmallBusinessTaxPlanner: React.FC = () => {
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label htmlFor="grossReceipts" className="block text-sm font-medium mb-1">{language==='en'?'Gross Annual Receipts':'స్థూల వార్షిక రసీదులు'}</label>
+                            <label htmlFor="grossReceipts" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Gross Annual Receipts':'స్థూల వార్షిక రసీదులు'}
+                                <Tooltip text={language === 'en' ? 'Your total income from your profession before any expenses.' : 'ఏ ఖర్చులకు ముందు మీ వృత్తి నుండి మీ మొత్తం ఆదాయం.'} />
+                            </label>
                             <input id="grossReceipts" value={receipts} onChange={e => setReceipts(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                         <div>
-                            <label htmlFor="businessExpenses" className="block text-sm font-medium mb-1">{language==='en'?'Actual Business Expenses':'వాస్తవ వ్యాపార ఖర్చులు'}</label>
+                            <label htmlFor="businessExpenses" className="flex items-center text-sm font-medium mb-1">
+                                {language==='en'?'Actual Business Expenses':'వాస్తవ వ్యాపార ఖర్చులు'}
+                                <Tooltip text={language === 'en' ? 'Your total tax-deductible expenses incurred for your profession.' : 'మీ వృత్తి కోసం అయిన మీ మొత్తం పన్ను-తగ్గింపు ఖర్చులు.'} />
+                            </label>
                             <input id="businessExpenses" value={expenses} onChange={e => setExpenses(e.target.value)} type="number" className="p-2 border rounded w-full"/>
                         </div>
                     </div>
