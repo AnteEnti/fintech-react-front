@@ -66,6 +66,7 @@ export interface ChatMessage {
 
 export interface User {
   username: string;
+  roles?: string[];
 }
 
 export interface SavedCalculation {

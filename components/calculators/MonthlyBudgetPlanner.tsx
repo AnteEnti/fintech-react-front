@@ -48,7 +48,7 @@ const MonthlyBudgetPlanner: React.FC<CalculatorProps> = ({ initialState, onState
     };
 
     const { totalIncome, totalExpenses, netSavings } = useMemo(() => {
-        const sumValues = (items: Item[]) => items.reduce((acc, item) => acc + (Number(item.value) || 0), 0);
+        const sumValues = (items: Item[]) => items.reduce((acc: number, item: Item) => acc + (Number(item.value) || 0), 0);
         const incomeSum = sumValues(incomes);
         const expensesSum = sumValues(expenses);
         const net = incomeSum - expensesSum;

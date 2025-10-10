@@ -39,7 +39,6 @@ export const SITEMAP_DATA: Sitemap = {
           category: { en: 'Investing', te: 'పెట్టుబడి' },
           interlinks: [
             { path: '/calculators/investment/sip', title: { en: 'SIP Calculator', te: 'SIP కాలిక్యులేటర్' } },
-            { path: '/compare/mf-vs-fd', title: { en: 'Mutual Funds vs Fixed Deposits', te: 'మ్యూచువల్ ఫండ్స్ vs ఫిక్సెడ్ డిపాజిట్లు' } },
           ],
         },
       ],
@@ -122,18 +121,7 @@ export const SITEMAP_DATA: Sitemap = {
         ],
     }
   ],
-  comparisons: [
-    {
-      path: '/compare/mf-vs-fd',
-      type: PageType.COMPARISON,
-      title: { en: 'Mutual Funds vs Fixed Deposits', te: 'మ్యూచువల్ ఫండ్స్ vs ఫిక్సెడ్ డిపాజిట్లు' },
-      description: { en: 'Compare Mutual Funds and Fixed Deposits based on returns, risk, liquidity, and taxation to help you decide which is better for your goals.', te: 'మీ లక్ష్యాలకు ఏది మంచిదో నిర్ణయించడంలో మీకు సహాయపడటానికి రాబడులు, ప్రమాదం, ద్రవత్వం మరియు పన్నుల ఆధారంగా మ్యూచువల్ ఫండ్స్ మరియు ఫిక్స్‌డ్ డిపాజిట్లను పోల్చండి.' },
-      interlinks: [
-        { path: '/calculators/investment/sip', title: { en: 'SIP Calculator', te: 'SIP కాలిక్యులేటర్' } },
-        { path: '/calculators/investment/fd', title: { en: 'FD Calculator', te: 'FD కాలిక్యులేటర్' } },
-      ],
-    },
-  ],
+  comparisons: [],
   tips: [
     {
       path: '/tips/daily-saving-tips',
@@ -315,7 +303,6 @@ const dashboardPage: PageData = {
 const allPages: PageData[] = [
   ...SITEMAP_DATA.learn.flatMap(c => c.pages),
   ...SITEMAP_DATA.calculators.flatMap(c => c.pages),
-  ...SITEMAP_DATA.comparisons,
   ...SITEMAP_DATA.tips,
   ...SITEMAP_DATA.interactiveGuides,
   dashboardPage,

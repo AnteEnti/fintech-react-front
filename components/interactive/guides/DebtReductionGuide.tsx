@@ -68,7 +68,7 @@ const DebtReductionGuide: React.FC = () => {
             currentDebts = currentDebts.map(d => ({ ...d, amount: Math.max(0, d.amount) }));
         }
 
-        const totalInitialDebt = debts.reduce((s,d) => s + (Number(d.amount) || 0), 0);
+        const totalInitialDebt = debts.reduce((s: number, d: Debt) => s + (Number(d.amount) || 0), 0);
 
         return { months, totalInterest, totalPayment: totalInitialDebt + totalInterest };
     };

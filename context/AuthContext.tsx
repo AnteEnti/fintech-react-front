@@ -19,12 +19,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('authToken'));
 
+  const fetchUserDetails = async (token: string) => {
+    const userDetailsResponse = await fetch(`${WORDPRESS_URL}/wp-json/wp/v2/users/me?context=edit`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!userDetailsResponse.ok) {
+      throw new Error("Failed to fetch user details.");
+    }
+
+    const userData = await userDetailsResponse.json();
+    setUser({ username: userData.name, roles: userData.roles || [] });
+    setIsAuthenticated(true);
+    setToken(token);
+  };
+
   useEffect(() => {
-    const validateToken = async () => {
+    const validateTokenAndFetchUser = async () => {
       const storedToken = localStorage.getItem('authToken');
       if (storedToken) {
         try {
-          // Validate the token against the server to ensure it's not expired or invalid
           const validationResponse = await fetch(`${WORDPRESS_URL}/wp-json/jwt-auth/v1/token/validate`, {
             method: 'POST',
             headers: {
@@ -33,31 +50,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           });
 
           if (validationResponse.ok) {
-            // Token is valid, now get user data
-            const userResponse = await fetch(`${WORDPRESS_URL}/wp-json/wp/v2/users/me`, {
-                headers: {
-                    'Authorization': `Bearer ${storedToken}`
-                }
-            });
-
-            if(userResponse.ok) {
-                const userData = await userResponse.json();
-                setUser({ username: userData.name });
-                setIsAuthenticated(true);
-                setToken(storedToken);
-            } else {
-                 logout();
-            }
+            // Token is valid, now fetch the full user details
+            await fetchUserDetails(storedToken);
           } else {
-            logout();
+            logout(); // Token is invalid or expired
           }
         } catch (error) {
-          console.error("Token validation error:", error);
+          console.error("Token validation or user fetch error:", error);
           logout();
         }
       }
     };
-    validateToken();
+    validateTokenAndFetchUser();
   }, []);
 
   const login = async (username: string, password: string): Promise<{ success: boolean; message: string }> => {
@@ -73,10 +77,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const data = await response.json();
 
       if (response.ok && data.token) {
-        localStorage.setItem('authToken', data.token);
-        setToken(data.token);
-        setUser({ username: data.user_display_name });
-        setIsAuthenticated(true);
+        const newToken = data.token;
+        localStorage.setItem('authToken', newToken);
+        await fetchUserDetails(newToken); // Fetch user details with the new token
         return { success: true, message: 'Login successful!' };
       } else {
         const errorMessage = data.message || (data.data && data.data.message) || 'Login failed.';
@@ -84,7 +87,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
     } catch (error) {
       console.error("Login error:", error);
-      return { success: false, message: 'An network error occurred.' };
+      return { success: false, message: 'A network error occurred.' };
     }
   };
 

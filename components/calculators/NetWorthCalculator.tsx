@@ -47,7 +47,7 @@ const NetWorthCalculator: React.FC<CalculatorProps> = ({ initialState, onStateCh
     };
 
     const { totalAssets, totalLiabilities, netWorth } = useMemo(() => {
-        const sumValues = (items: Item[]) => items.reduce((acc, item) => acc + (Number(item.value) || 0), 0);
+        const sumValues = (items: Item[]) => items.reduce((acc: number, item: Item) => acc + (Number(item.value) || 0), 0);
         const assetsSum = sumValues(assets);
         const liabilitiesSum = sumValues(liabilities);
         const net = assetsSum - liabilitiesSum;

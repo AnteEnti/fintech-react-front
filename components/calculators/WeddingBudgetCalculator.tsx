@@ -80,7 +80,7 @@ const WeddingBudgetCalculator: React.FC<CalculatorProps> = ({ initialState, onSt
     const chartData = {
         labels: categories.map(c => c.name[language]),
         datasets: [{
-            data: categories.map(c => c.items.reduce((sum, item) => sum + (Number(item.estimated) || 0), 0)),
+            data: categories.map(c => c.items.reduce((sum: number, item: BudgetItem) => sum + (Number(item.estimated) || 0), 0)),
             backgroundColor: ['#3b82f6', '#ef4444', '#f97316', '#22c55e', '#a855f7', '#ec4899'],
             borderColor: theme === 'dark' ? '#1e293b' : '#fff',
             borderWidth: 2,

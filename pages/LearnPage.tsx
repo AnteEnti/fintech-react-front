@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { updateMetaTags } from '../utils/seo';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { marked } from 'marked';
 
 const ChevronRightIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
@@ -114,58 +115,95 @@ const LearnPage: React.FC = () => {
             return <p className="text-red-500 text-center py-8">{error}</p>;
         }
         
+        const samplePostCard = (
+            <section>
+                <h2 className="text-3xl font-bold mb-6 text-secondary dark:text-blue-400 border-b-2 border-secondary/20 pb-2">
+                    {language === 'en' ? 'Featured Guide' : 'ఫీచర్ చేసిన గైడ్'}
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Link
+                        to="/learn/sample-post"
+                        className="group block p-6 bg-white dark:bg-dark rounded-lg shadow-lg hover:shadow-xl hover:border-primary dark:hover:border-blue-400 border-2 border-transparent transition-all duration-300"
+                    >
+                        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2 group-hover:text-primary dark:group-hover:text-blue-300">
+                            What is Budgeting? / బడ్జెట్ అంటే ఏమిటి?
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                            {language === 'en' 
+                                ? 'A complete bilingual (Telugu + English) guide on budgeting. Learn why it matters, types of budgets, 50/30/20 rule, step-by-step how to create a budget, and common mistakes.'
+                                : 'బడ్జెటింగ్ పై పూర్తి ద్విభాషా (తెలుగు + ఇంగ్లీష్) గైడ్. ఇది ఎందుకు ముఖ్యమో, బడ్జెట్ రకాలు, 50/30/20 నియమం, బడ్జెట్ ఎలా సృష్టించాలో దశల వారీగా, మరియు సాధారణ తప్పులను తెలుసుకోండి.'
+                            }
+                        </p>
+                        <div className="flex items-center font-semibold text-accent dark:text-orange-400">
+                            <span>{language === 'en' ? 'Read more' : 'ఇంకా చదవండి'}</span>
+                            <ChevronRightIcon />
+                        </div>
+                    </Link>
+                </div>
+            </section>
+        );
+
         const categoriesWithPosts = categories.filter(
             category => category.posts && category.posts.nodes && category.posts.nodes.length > 0
         );
 
         if (categoriesWithPosts.length === 0) {
             return (
-                <div className="text-center py-10">
-                    <p className="text-gray-500">{language === 'en' ? 'No articles found.' : 'కథనాలు ఏవీ కనుగొనబడలేదు.'}</p>
-                    <p className="text-sm text-gray-400 mt-2">{language === 'en' ? 'Add posts to child categories under "Learn" in WordPress to see them here.' : 'WordPress లో "Learn" క్రింద ఉన్న చైల్డ్ కేటగిరీలకు పోస్ట్‌లను జోడించండి.'}</p>
-                </div>
+                 <>
+                    {samplePostCard}
+                    <div className="text-center py-10">
+                        <p className="text-gray-500">{language === 'en' ? 'No other articles found.' : 'ఇతర కథనాలు ఏవీ కనుగొనబడలేదు.'}</p>
+                        <p className="text-sm text-gray-400 mt-2">{language === 'en' ? 'Add posts to child categories under "Learn" in WordPress to see them here.' : 'WordPress లో "Learn" క్రింద ఉన్న చైల్డ్ కేటగిరీలకు పోస్ట్‌లను జోడించండి.'}</p>
+                    </div>
+                </>
             );
         }
 
-        return categoriesWithPosts.map(category => {
-            const categoryName = category.name;
+        return (
+            <>
+                {samplePostCard}
+                {categoriesWithPosts.map(category => {
+                    const categoryName = category.name;
 
-            return (
-                <section key={category.slug}>
-                    <h2 className="text-3xl font-bold mb-6 text-secondary dark:text-blue-400 border-b-2 border-secondary/20 pb-2">
-                        {categoryName}
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {category.posts.nodes.map(post => {
-                            const postTitle = language === 'te' ? post.telugutitle : post.englishtitle;
-                            const postExcerpt = language === 'te' ? post.teluguexcerpt : post.englishexcerpt;
+                    return (
+                        <section key={category.slug}>
+                            <h2 className="text-3xl font-bold mb-6 text-secondary dark:text-blue-400 border-b-2 border-secondary/20 pb-2">
+                                {categoryName}
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {category.posts.nodes.map(post => {
+                                    const postTitle = language === 'te' ? post.telugutitle : post.englishtitle;
+                                    const markdownExcerpt = language === 'te' ? post.teluguexcerpt : post.englishexcerpt;
 
-                            // In case excerpt contains HTML, clean it for display.
-                            const tempDiv = document.createElement("div");
-                            tempDiv.innerHTML = postExcerpt || '';
-                            const cleanExcerpt = tempDiv.textContent || tempDiv.innerText || "";
+                                    // Parse markdown and then strip tags for a clean excerpt
+                                    const htmlExcerpt = marked.parse(markdownExcerpt || '') as string;
+                                    const tempDiv = document.createElement("div");
+                                    tempDiv.innerHTML = htmlExcerpt;
+                                    const cleanExcerpt = tempDiv.textContent || tempDiv.innerText || "";
 
-                            return (
-                                <Link
-                                    to={`/post/${post.slug}`}
-                                    key={post.slug}
-                                    className="group block p-6 bg-white dark:bg-dark rounded-lg shadow-lg hover:shadow-xl hover:border-primary dark:hover:border-blue-400 border-2 border-transparent transition-all duration-300"
-                                >
-                                    <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2 group-hover:text-primary dark:group-hover:text-blue-300" dangerouslySetInnerHTML={{ __html: postTitle || '' }}/>
-                                    <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-                                        {cleanExcerpt}
-                                    </p>
-                                    <div className="flex items-center font-semibold text-accent dark:text-orange-400">
-                                        <span>{language === 'en' ? 'Read more' : 'ఇంకా చదవండి'}</span>
-                                        <ChevronRightIcon />
-                                    </div>
-                                </Link>
-                            );
-                        })}
-                    </div>
-                </section>
-            );
-        });
+                                    return (
+                                        <Link
+                                            to={`/post/${post.slug}`}
+                                            key={post.slug}
+                                            className="group block p-6 bg-white dark:bg-dark rounded-lg shadow-lg hover:shadow-xl hover:border-primary dark:hover:border-blue-400 border-2 border-transparent transition-all duration-300"
+                                        >
+                                            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2 group-hover:text-primary dark:group-hover:text-blue-300" dangerouslySetInnerHTML={{ __html: postTitle || '' }}/>
+                                            <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                                                {cleanExcerpt}
+                                            </p>
+                                            <div className="flex items-center font-semibold text-accent dark:text-orange-400">
+                                                <span>{language === 'en' ? 'Read more' : 'ఇంకా చదవండి'}</span>
+                                                <ChevronRightIcon />
+                                            </div>
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </section>
+                    );
+                })}
+            </>
+        );
     }
 
     return (

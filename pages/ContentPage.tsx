@@ -7,6 +7,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import RelatedLinks from '../components/RelatedLinks';
 import { SITEMAP_DATA } from '../constants';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { marked } from 'marked';
 
 
 interface ContentPageProps {
@@ -30,7 +31,7 @@ const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
   const { language } = useLanguage();
   const location = useLocation();
 
-  const [content, setContent] = useState<string | null>(null);
+  const [rawMarkdown, setRawMarkdown] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -56,7 +57,7 @@ const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
     const fetchContent = async () => {
         setIsLoading(true);
         setError(null);
-        setContent(null);
+        setRawMarkdown(null);
 
         const slug = pageData.path.split('/').pop();
 
@@ -92,8 +93,8 @@ const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
                 throw new Error('Content not found for this topic.');
             }
             
-            const htmlContent = language === 'te' ? post.telugucontent : post.englishcontent;
-            setContent(htmlContent || '');
+            const markdownContent = language === 'te' ? post.telugucontent : post.englishcontent;
+            setRawMarkdown(markdownContent || '');
 
         } catch (e: any) {
             setError(language === 'en' ? `Failed to load content: ${e.message}` : `కంటెంట్ లోడ్ చేయడంలో విఫలమైంది: ${e.message}`);
@@ -105,20 +106,66 @@ const ContentPage: React.FC<ContentPageProps> = ({ pageData }) => {
     fetchContent();
   }, [pageData.path, language]);
 
+  const { content, tocItems } = useMemo(() => {
+    if (!rawMarkdown) return { content: null, tocItems: [] };
+
+    const headings: { text: string; slug: string }[] = [];
+    const renderer = new marked.Renderer();
+    const existingSlugs = new Set();
+
+    renderer.heading = (text, level, raw) => {
+        if (level === 2) {
+            let slug = raw.toLowerCase().replace(/[^\w\u0c00-\u0c7f]+/g, '-'); // Support Telugu characters in slugs
+            
+            // Ensure slug is unique
+            let slugCounter = 1;
+            let uniqueSlug = slug;
+            while (existingSlugs.has(uniqueSlug)) {
+                uniqueSlug = `${slug}-${slugCounter}`;
+                slugCounter++;
+            }
+            existingSlugs.add(uniqueSlug);
+
+            headings.push({ text, slug: uniqueSlug });
+            return `<h2 id="${uniqueSlug}">${text}</h2>`;
+        }
+        return `<h${level}>${text}</h${level}>`;
+    };
+
+    const parsedContent = marked.parse(rawMarkdown, { renderer }) as string;
+    return { content: parsedContent, tocItems: headings };
+  }, [rawMarkdown]);
+
+
   return (
     <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 max-w-7xl mx-auto">
       <Sidebar title={sidebarTitle} categories={sidebarCategories} currentPath={location.pathname} />
       <div className="flex-grow min-w-0">
         <Breadcrumbs pageData={pageData} />
-        <div className="bg-white dark:bg-dark p-6 sm:p-8 rounded-lg shadow-xl mt-4 min-h-[400px]">
-          {isLoading && <LoadingSpinner />}
-          {error && <p className="text-red-500 text-center py-8">{error}</p>}
-          {content && (
-              <article
-                  className="prose dark:prose-invert lg:prose-lg"
-                  dangerouslySetInnerHTML={{ __html: content }}
-              />
-          )}
+        <div className="bg-white dark:bg-dark p-6 sm:p-8 rounded-lg shadow-xl mt-4">
+          <article className="prose dark:prose-invert lg:prose-lg max-w-none">
+            <h1>{pageData.title[language]}</h1>
+            
+            {tocItems.length > 0 && (
+                <div className="toc">
+                    <strong>{language === 'en' ? 'Table of Contents' : 'విషయ సూచిక'}:</strong>
+                    {tocItems.map((item, index) => (
+                        <React.Fragment key={item.slug}>
+                            <a href={`#${item.slug}`}> {item.text}</a>
+                            {index < tocItems.length - 1 && ' •'}
+                        </React.Fragment>
+                    ))}
+                </div>
+            )}
+
+            <div className="min-h-[300px]">
+              {isLoading && <LoadingSpinner />}
+              {error && <p className="text-red-500 text-center py-8">{error}</p>}
+              {content && (
+                <div dangerouslySetInnerHTML={{ __html: content }} />
+              )}
+            </div>
+          </article>
         </div>
         <RelatedLinks links={pageData.interlinks} />
       </div>

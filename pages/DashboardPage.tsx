@@ -29,6 +29,8 @@ const DashboardPage: React.FC = () => {
 
     const formatCurrency = (value: number) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
 
+    const isAdmin = user?.roles?.some(role => ['administrator', 'editor', 'author'].includes(role));
+
     return (
         <div className="space-y-12">
             <header>
@@ -39,6 +41,20 @@ const DashboardPage: React.FC = () => {
                     {language === 'en' ? `Welcome back, ${user?.username}!` : `తిరిగి స్వాగతం, ${user?.username}!`}
                 </p>
             </header>
+            
+            {/* Admin Section */}
+            {isAdmin && (
+                <section>
+                    <h2 className="text-3xl font-bold mb-6">{language === 'en' ? 'Admin Tools' : 'అడ్మిన్ సాధనాలు'}</h2>
+                    <div className="bg-white dark:bg-dark p-6 rounded-lg shadow-lg">
+                        <h3 className="font-bold text-secondary dark:text-blue-400 text-lg mb-2">{language === 'en' ? 'News Feed Management' : 'వార్తల ఫీడ్ నిర్వహణ'}</h3>
+                        <p className="text-gray-600 dark:text-gray-400 mb-4">{language === 'en' ? 'Fetch latest financial news and create drafts in WordPress for approval.' : 'తాజా ఆర్థిక వార్తలను పొందండి మరియు ఆమోదం కోసం WordPressలో డ్రాఫ్ట్‌లను సృష్టించండి.'}</p>
+                        <Link to="/admin/news-approval" className="bg-accent text-white font-bold py-2 px-4 rounded-md hover:bg-orange-600 transition-colors">
+                            {language === 'en' ? 'Go to News Approval' : 'వార్తల ఆమోదానికి వెళ్లండి'}
+                        </Link>
+                    </div>
+                </section>
+            )}
 
             {/* Saved Calculations */}
             <section>

@@ -62,9 +62,10 @@ const Header: React.FC = () => {
   const navItems = [
     { path: '/', label: { en: 'Home', te: 'హోమ్' } },
     { path: '/learn', label: { en: 'Learn', te: 'తెలుసుకోండి' } },
+    { path: '/meaning', label: { en: 'Meaning', te: 'అర్థం' } },
     { path: '/calculators', label: { en: 'Calculators', te: 'కాలిక్యులేటర్లు' } },
     { path: '/guides', label: { en: 'Guides', te: 'గైడ్‌లు' } },
-    { path: '/compare/mf-vs-fd', label: { en: 'Comparisons', te: 'పోలికలు' } },
+    { path: '/news', label: { en: 'News', te: 'వార్తలు' } },
   ];
 
   const NavLinks = ({ isMobile }: { isMobile?: boolean }) => (

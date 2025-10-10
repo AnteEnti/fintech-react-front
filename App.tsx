@@ -18,6 +18,11 @@ import SearchResultsPage from './pages/SearchResultsPage';
 import PostPage from './pages/PostPage';
 import LearnPage from './pages/LearnPage';
 import GuidesListPage from './pages/GuidesListPage';
+import SamplePostPage from './pages/SamplePostPage';
+import SitemapPage from './pages/SitemapPage';
+import MeaningPage from './pages/MeaningPage';
+import NewsPage from './pages/NewsPage';
+import NewsApprovalPage from './pages/NewsApprovalPage';
 
 const App: React.FC = () => {
   const { theme } = useLanguage();
@@ -40,8 +45,10 @@ const App: React.FC = () => {
             
             {/* Content Pages */}
             <Route path="/learn" element={<LearnPage />} />
+            <Route path="/meaning" element={<MeaningPage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/learn/sample-post" element={<SamplePostPage />} />
             <Route path="/learn/:category/:topic" element={<ContentPageWrapper />} />
-            <Route path="/compare/:topic" element={<ContentPageWrapper />} />
             <Route path="/tips/:topic" element={<ContentPageWrapper />} />
             
             {/* Calculator Pages */}
@@ -63,6 +70,14 @@ const App: React.FC = () => {
 
             {/* User Pages */}
             <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+            <Route path="/admin/news-approval" element={
+              <ProtectedRoute allowedRoles={['administrator', 'editor', 'author']}>
+                <NewsApprovalPage />
+              </ProtectedRoute>
+            } />
+
+            {/* Sitemap */}
+            <Route path="/sitemap.xml" element={<SitemapPage />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
@@ -73,12 +88,20 @@ const App: React.FC = () => {
   );
 };
 
-// FIX: Changed children type from JSX.Element to React.ReactElement to resolve "Cannot find namespace 'JSX'" error.
-const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
-    const { isAuthenticated } = useAuth();
+const ProtectedRoute: React.FC<{ children: React.ReactElement; allowedRoles?: string[] }> = ({ children, allowedRoles }) => {
+    const { isAuthenticated, user } = useAuth();
+    
     if (!isAuthenticated) {
         return <Navigate to="/" replace />;
     }
+
+    if (allowedRoles && allowedRoles.length > 0) {
+        const userHasRequiredRole = user?.roles?.some(role => allowedRoles.includes(role));
+        if (!userHasRequiredRole) {
+            return <Navigate to="/dashboard" replace />;
+        }
+    }
+
     return children;
 };
 

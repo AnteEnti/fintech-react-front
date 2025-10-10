@@ -1,66 +1,138 @@
 export const SAMPLE_POST_DATA = {
     title: {
-        en: "Understanding Mutual Funds",
-        te: "మ్యూచువల్ ఫండ్స్‌ను అర్థం చేసుకోవడం",
+        en: "What is Budgeting? A Money Basics Guide",
+        te: "బడ్జెట్ అంటే ఏమిటి? ఒక మనీ బేసిక్స్ గైడ్",
     },
     content: {
         en: `
-            <h1>A Beginner's Guide to Mutual Funds</h1>
-            <p>Mutual funds can seem complex, but they are one of the most popular ways for beginners to start investing. This guide will break down the basics in simple terms.</p>
-            
-            <h2>What is a Mutual Fund?</h2>
-            <p>Imagine a big basket of money collected from many investors like you. A professional, called a <strong>fund manager</strong>, takes this money and invests it in a variety of assets like stocks, bonds, or gold. When you invest in a mutual fund, you are buying a small piece of this big basket. This makes it an easy way to own a diversified portfolio without having to buy each stock or bond individually.</p>
-            
-            <h2>How Do They Work?</h2>
-            <ol>
-                <li><strong>Pooling Money:</strong> Many investors put their money into a fund.</li>
-                <li><strong>Professional Management:</strong> A fund manager decides where to invest the money based on the fund's objective.</li>
-                <li><strong>Buying Units:</strong> You buy 'units' of the fund. The price of one unit is called the Net Asset Value (NAV).</li>
-                <li><strong>Returns:</strong> As the value of the fund's investments goes up, the NAV of your units also increases. You make money when you sell your units at a higher price than you bought them for.</li>
-            </ol>
-            
-            <h2>Types of Mutual Funds</h2>
-            <p>There are many types of mutual funds, but here are the three main categories:</p>
-            <ul>
-                <li><strong>Equity Funds:</strong> These funds primarily invest in stocks (shares) of companies. They have the potential for high returns but also come with higher risk. They are good for long-term goals.</li>
-                <li><strong>Debt Funds:</strong> These funds invest in fixed-income instruments like government bonds and corporate bonds. They are safer than equity funds and offer more stable, but lower, returns. Good for short-to-medium term goals.</li>
-                <li><strong>Hybrid Funds:</strong> These funds invest in a mix of both equity and debt. They offer a balance between risk and return, making them suitable for investors who want growth but with less risk than pure equity funds.</li>
-            </ul>
+## Introduction
+Budgeting isn’t just a big Excel sheet. It’s about giving direction to your money — from tracking coffee spends to deciding how much to save each month.
 
-            <blockquote>
-                <p><strong>Key Takeaway:</strong> Mutual funds are a powerful tool for wealth creation. By choosing the right type of fund based on your financial goals and risk tolerance, you can start your investment journey with ease and professional guidance.</p>
-            </blockquote>
+## Definition
+**Budgeting** means planning your *income* and *expenses* in advance and allocating money to your goals. Simply put: *“If you don’t tell your money where to go, you’ll wonder where it went.”*
 
-            <p>Before investing, always check the fund's objective, past performance (though it doesn't guarantee future results), and the expense ratio (the fee charged by the fund manager).</p>
+## Why Budget?
+*   Identify and cut unnecessary expenses.
+*   Save for goals — travel, education, home, emergency fund.
+*   Avoid late fees with timely bill payments.
+*   Reduce money stress; enjoy financial peace.
+
+## Types of Budgets
+<table class="table" role="table" aria-label="Types of budgets">
+  <thead><tr><th>Type</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>Personal Budget</td><td>Tracks an individual’s/couple’s income, bills, savings.</td></tr>
+    <tr><td>Household Budget</td><td>Manages family income, common expenses, kids’ costs.</td></tr>
+    <tr><td>Business Budget</td><td>Income, operating costs, cash flow, profits.</td></tr>
+    <tr><td>Zero-based Budget</td><td>Every rupee/dollar has a job; month-end leftover is zero.</td></tr>
+  </tbody>
+</table>
+
+## How to Create a Budget
+1.  **List income:** Salary, business, side hustles, interest.
+2.  **Track expenses:** Monitor 1–2 months; split into *needs*/*wants*.
+3.  **Set goals:** Emergency fund, debt payoff, travel, investments.
+4.  **Allocate:** Limits for rent, groceries, transport, utilities, savings.
+5.  **Automate & review:** Auto-transfer savings; review monthly.
+
+## Popular Budgeting Methods
+*   **50/30/20 Rule:** 50% needs, 30% wants, 20% savings/investments.
+*   **Zero-based:** Give every rupee a job; leftover should be zero.
+*   **Envelope Method:** Category limits via cash envelopes or digital buckets.
+*   **Pay-Yourself-First:** Save/invest first; spend the rest.
+
+## Sample Monthly Budget
+<table class="table" role="table" aria-label="Sample monthly budget">
+  <thead><tr><th>Category</th><th>Percentage</th><th>For ₹30,000 Income</th></tr></thead>
+  <tbody>
+    <tr><td>Needs (Rent, Groceries, Utilities)</td><td>50%</td><td>₹15,000</td></tr>
+    <tr><td>Wants (Eating out, Entertainment)</td><td>30%</td><td>₹9,000</td></tr>
+    <tr><td>Savings/Investments (Fund, SIPs)</td><td>20%</td><td>₹6,000</td></tr>
+  </tbody>
+</table>
+<p class="note">Note: Percentages vary by city, income, and lifestyle. Adjust to fit your reality.</p>
+
+## Common Budgeting Mistakes
+*   Underestimating expenses; no buffer.
+*   No emergency fund.
+*   Ignoring irregular/variable income.
+*   No monthly review and course-correction.
+
+## Tools & Templates
+*   Excel/Google Sheets templates.
+*   Budgeting apps — auto tracking, alerts, goals.
+*   UPI/Bank app insights — monthly spend analysis.
+
+<p class="tip"><strong>Tip:</strong> Give yourself 90 days to adapt — it gets much easier.</p>
+
+<hr class="divider" />
+
+**Final Thought:** “Budgeting is drawing a map for your money.” Start small, stay consistent.
         `,
         te: `
-            <h1>మ్యూచువల్ ఫండ్స్‌కు ఒక ప్రారంభకుడి గైడ్</h1>
-            <p>మ్యూచువల్ ఫండ్‌లు సంక్లిష్టంగా అనిపించవచ్చు, కానీ అవి ప్రారంభకులు పెట్టుబడి పెట్టడం ప్రారంభించడానికి అత్యంత ప్రజాదరణ పొందిన మార్గాలలో ఒకటి. ఈ గైడ్ ప్రాథమికాలను సరళమైన పదాలలో వివరిస్తుంది.</p>
-            
-            <h2>మ్యూచువల్ ఫండ్ అంటే ఏమిటి?</h2>
-            <p>మీలాంటి చాలా మంది పెట్టుబడిదారుల నుండి సేకరించిన ఒక పెద్ద డబ్బు బుట్టను ఊహించుకోండి. <strong>ఫండ్ మేనేజర్</strong> అని పిలువబడే ఒక నిపుణుడు, ఈ డబ్బును తీసుకుని స్టాక్స్, బాండ్లు లేదా బంగారం వంటి వివిధ ఆస్తులలో పెట్టుబడి పెడతాడు. మీరు ఒక మ్యూచువల్ ఫండ్‌లో పెట్టుబడి పెట్టినప్పుడు, మీరు ఈ పెద్ద బుట్టలో ఒక చిన్న భాగాన్ని కొనుగోలు చేస్తున్నారు. ఇది ప్రతి స్టాక్ లేదా బాండ్‌ను వ్యక్తిగతంగా కొనకుండానే వైవిధ్యభరితమైన పోర్ట్‌ఫోలియోను కలిగి ఉండటానికి సులభమైన మార్గం.</p>
-            
-            <h2>అవి ఎలా పనిచేస్తాయి?</h2>
-            <ol>
-                <li><strong>డబ్బును సమీకరించడం:</strong> చాలా మంది పెట్టుబడిదారులు తమ డబ్బును ఒక ఫండ్‌లో పెడతారు.</li>
-                <li><strong>వృత్తిపరమైన నిర్వహణ:</strong> ఫండ్ యొక్క లక్ష్యం ఆధారంగా డబ్బును ఎక్కడ పెట్టుబడి పెట్టాలో ఒక ఫండ్ మేనేజర్ నిర్ణయిస్తారు.</li>
-                <li><strong>యూనిట్లను కొనడం:</strong> మీరు ఫండ్ యొక్క 'యూనిట్లను' కొనుగోలు చేస్తారు. ఒక యూనిట్ ధరను నికర ఆస్తి విలువ (NAV) అంటారు.</li>
-                <li><strong>రాబడి:</strong> ఫండ్ యొక్క పెట్టుబడుల విలువ పెరిగేకొద్దీ, మీ యూనిట్ల NAV కూడా పెరుగుతుంది. మీరు మీ యూనిట్లను కొనుగోలు చేసిన దానికంటే ఎక్కువ ధరకు అమ్మినప్పుడు మీరు డబ్బు సంపాదిస్తారు.</li>
-            </ol>
-            
-            <h2>మ్యూచువల్ ఫండ్ల రకాలు</h2>
-            <p>అనేక రకాల మ్యూచువల్ ఫండ్‌లు ఉన్నాయి, కానీ ఇక్కడ మూడు ప్రధాన వర్గాలు ఉన్నాయి:</p>
-            <ul>
-                <li><strong>ఈక్విటీ ఫండ్‌లు:</strong> ఈ ఫండ్‌లు ప్రధానంగా కంపెనీల స్టాక్స్ (షేర్లు)లో పెట్టుబడి పెడతాయి. అధిక రాబడికి అవకాశం ఉంటుంది కానీ అధిక ప్రమాదం కూడా ఉంటుంది. ఇవి దీర్ఘకాలిక లక్ష్యాలకు మంచివి.</li>
-                <li><strong>డెట్ ఫండ్‌లు:</strong> ఈ ఫండ్‌లు ప్రభుత్వ బాండ్లు మరియు కార్పొరేట్ బాండ్ల వంటి స్థిర-ఆదాయ సాధనాలలో పెట్టుబడి పెడతాయి. ఇవి ఈక్విటీ ఫండ్‌ల కంటే సురక్షితమైనవి మరియు మరింత స్థిరమైన, కానీ తక్కువ, రాబడిని అందిస్తాయి. స్వల్ప-మధ్యకాలిక లక్ష్యాలకు మంచివి.</li>
-                <li><strong>హైబ్రిడ్ ఫండ్‌లు:</strong> ఈ ఫండ్‌లు ఈక్విటీ మరియు డెట్ రెండింటి మిశ్రమంలో పెట్టుబడి పెడతాయి. ఇవి ప్రమాదం మరియు రాబడి మధ్య సమతుల్యాన్ని అందిస్తాయి, వృద్ధిని కోరుకునే కానీ స్వచ్ఛమైన ఈక్విటీ ఫండ్‌ల కంటే తక్కువ ప్రమాదంతో ఉండే పెట్టుబడిదారులకు అనుకూలంగా ఉంటాయి.</li>
-            </ul>
+## పరిచయం
+బడ్జెట్ అంటే పెద్ద ఎక్సెల్ షీట్ కాదు. ఇది మీ డబ్బుకు దిశ చూపే పథకం — ఉదయం కాఫీకి ఎంత ఖర్చు అవుతుందో గుర్తుంచుకోవడం నుండి నెలాఖరులో ఎంత సేవ్ చేయాలో నిర్ణయించుకోవడం వరకు.
 
-            <blockquote>
-                <p><strong>ముఖ్య సారాంశం:</strong> మ్యూచువల్ ఫండ్‌లు సంపద సృష్టికి ఒక శక్తివంతమైన సాధనం. మీ ఆర్థిక లక్ష్యాలు మరియు ప్రమాద సహనం ఆధారంగా సరైన రకమైన ఫండ్‌ను ఎంచుకోవడం ద్వారా, మీరు మీ పెట్టుబడి ప్రయాణాన్ని సులభంగా మరియు వృత్తిపరమైన మార్గదర్శకత్వంతో ప్రారంభించవచ్చు.</p>
-            </blockquote>
+## అర్థం
+**బడ్జెట్ (Budgeting)** అంటే మీరు సంపాదించే *ఆదాయం* మరియు *ఖర్చులను* ముందుగానే ప్రణాళిక చేసుకోవడం, మీ లక్ష్యాల ప్రకారం వాటిని కేటాయించడం. సింపుల్‌గా: *“మీరు మీ డబ్బుకి దిశ చెప్పకపోతే, అది ఎక్కడికో వెళ్ళిపోతుంది.”*
 
-            <p>పెట్టుబడి పెట్టే ముందు, ఫండ్ యొక్క లక్ష్యం, గత పనితీరు (అది భవిష్యత్ ఫలితాలకు హామీ ఇవ్వనప్పటికీ), మరియు వ్యయ నిష్పత్తి (ఫండ్ మేనేజర్ వసూలు చేసే రుసుము) ఎల్లప్పుడూ తనిఖీ చేయండి.</p>
+## ఎందుకు బడ్జెట్?
+*   అవసరం లేని ఖర్చులను గుర్తించి తగ్గించుకోవచ్చు.
+*   ప్రయాణం, విద్య, ఇల్లు లేదా అత్యవసర నిధి కోసం సేవ్ చేయొచ్చు.
+*   బిల్లులు టైమ్‌కీ చెల్లించి ఆలస్య రుసుములు తప్పించొచ్చు.
+*   మనీ స్ట్రెస్ తగ్గుతుంది; మానసిక ప్రశాంతత పెరుగుతుంది.
+
+## బడ్జెట్ రకాలు
+<table class="table" role="table" aria-label="బడ్జెట్ రకాలు">
+  <thead><tr><th>రకం</th><th>వివరణ</th></tr></thead>
+  <tbody>
+    <tr><td>వ్యక్తిగత బడ్జెట్</td><td>వ్యక్తి/జంట ఆదాయం, బిల్లులు, సేవింగ్స్ ట్రాక్ చేయడం.</td></tr>
+    <tr><td>ఇంటివారి బడ్జెట్</td><td>కుటుంబ ఆదాయం, సాధారణ ఖర్చులు, పిల్లల వ్యయాలు.</td></tr>
+    <tr><td>వ్యాపార బడ్జెట్</td><td>వ్యాపార ఆదాయం, ఖర్చులు, క్యాష్ ఫ్లో, లాభాలు.</td></tr>
+    <tr><td>జీరో-బేస్డ్ బడ్జెట్</td><td>ప్రతి రూపాయికి ఒక పనిని కేటాయించడం; నెలాఖరులో మిగులు శూన్యం.</td></tr>
+  </tbody>
+</table>
+
+## బడ్జెట్ తయారు చేసే విధానం
+1.  **ఆదాయం నమోదు:** జీతం, వ్యాపారం, అదనపు ఆదాయం, వడ్డీ మొదలైనవి.
+2.  **ఖర్చు ట్రాక్:** 1–2 నెలలు actual spending ట్రాక్ చేసి *అవసరాలు*/*ఇష్టాలు*గా విభజించండి.
+3.  **లక్ష్యాలు:** ఎమర్జెన్సీ ఫండ్, రుణ చెల్లింపులు, ప్రయాణం, పెట్టుబడులు.
+4.  **కేటాయింపు:** రెంట్, కూరగాయలు, రవాణా, బిల్లులు, సేవింగ్స్‌లకు పరిమితులు పెట్టండి.
+5.  **ఆటోమేట్ & రివ్యూ:** సేవింగ్స్ ఆటో-ట్రాన్స్‌ఫర్; నెలవారీగా సమీక్షించండి.
+
+## ప్రముఖ బడ్జెటింగ్ పద్ధతులు
+*   **50/30/20 నియమం:** 50% అవసరాలు, 30% ఇష్టాలు, 20% సేవింగ్స్/ఇన్వెస్ట్మెంట్స్.
+*   **జీరో-బేస్డ్ బడ్జెట్:** ప్రతి రూపాయికి పని; బాకీ 0.
+*   **ఎన్వలప్ పద్ధతి:** కేటగిరీ-వైజ్ envelope/డిజిటల్ బకెట్లు, అదే పరిమితి లో ఖర్చు.
+*   **Pay-Yourself-First:** ముందుగా సేవ్/ఇన్వెస్ట్ చేసి తర్వాత ఖర్చు చేయడం.
+
+## ఉదాహరణ బడ్జెట్
+<table class="table" role="table" aria-label="ఉదాహరణ బడ్జెట్">
+  <thead><tr><th>కేటగిరీ</th><th>శాతం</th><th>₹30,000 ఆదాయానికి</th></tr></thead>
+  <tbody>
+    <tr><td>అవసరాలు (అద్దె, కూరగాయలు, బిల్లులు)</td><td>50%</td><td>₹15,000</td></tr>
+    <tr><td>ఇష్టాలు (బయట తినడం, వినోదం)</td><td>30%</td><td>₹9,000</td></tr>
+    <tr><td>సేవింగ్స్/ఇన్వెస్ట్మెంట్స్ (ఫండ్, SIPs)</td><td>20%</td><td>₹6,000</td></tr>
+  </tbody>
+</table>
+<p class="note">గమనిక: శాతం మీ నగరం, ఆదాయం, జీవనశైలి ఆధారంగా మారవచ్చు. అవసరానికి అనుగుణంగా సర్దుబాటు చేయండి.</p>
+
+## సాధారణ తప్పులు
+*   ఖర్చులను తక్కువగా అంచనా వేయడం; బఫర్ లేకపోవడం.
+*   అత్యవసర నిధి లేకపోవడం.
+*   అస్థిర ఆదాయాన్ని పరిగణించకపోవడం.
+*   నెలవారీ రివ్యూ చేయకపోవడం.
+
+## సాధనాలు & టెంప్లేట్లు
+*   Excel/Google Sheets — సింపుల్ టెంప్లేట్లు.
+*   Budgeting Apps — ఆటో ట్రాకింగ్, అలర్ట్లు, గోల్ సెట్టింగ్.
+*   UPI/బ్యాంక్ యాప్ ఇన్‌సైట్స్ — నెలవారీ ఖర్చు విశ్లేషణ.
+
+<p class="tip"><strong>సూచన:</strong> కొత్త బడ్జెట్ అలవాటుకి 90 రోజులు ఇస్తే తర్వాత చాలా సులభంగా అనిపిస్తుంది.</p>
+
+<hr class="divider" />
+
+**తుది ఆలోచన:** “బడ్జెట్ చేయడం అంటే మీ డబ్బుకి పథం గీయడం.” చిన్నగా మొదలుపెట్టండి, క్రమబద్ధంగా కొనసాగండి.
         `
     }
 };

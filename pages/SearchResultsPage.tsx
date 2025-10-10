@@ -64,7 +64,7 @@ const SearchResultsPage: React.FC = () => {
                     </p>
                 )}
             </header>
-
+            
             {searchResults.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {searchResults.map(page => (
